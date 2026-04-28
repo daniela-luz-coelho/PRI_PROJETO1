@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RepositóriUM Search Engine</title>
+  <style>
+    :root {
+      --primary: #003f8a;
+      --primary-light: #1a5fa8;
+      --accent: #e8a020;
+      --bg: #f4f6fa;
+      --card-bg: #ffffff;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+      --border: #dde1ea;
+      --success: #16a34a;
+      --radius: 10px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    header .logo { font-size: 2rem; }
+    header h1 { font-size: 1.5rem; font-weight: 700; }
+    header p { font-size: 0.85rem; opacity: 0.85; }
+
+    /* Main layout */
+    main { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+
+    /* Search box */
+    .search-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .search-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .search-row input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color .2s;
+    }
+    .search-row input:focus { border-color: var(--primary); }
+    .btn-search {
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background .2s;
+    }
+    .btn-search:hover { background: var(--primary-light); }
+
+    /* Options row */
+    .options-row {
+      display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-end;
+    }
+    .option-group label {
+      display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: 0.35rem;
+    }
+    .option-group select, .option-group input[type=number] {
+      padding: 0.4rem 0.7rem;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: white;
+    }
+    .toggle-row { display: flex; gap: 1rem; }
+    .toggle-label {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.85rem; cursor: pointer;
+    }
+    .toggle-label input { cursor: pointer; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 0; margin-bottom: 1.5rem; }
+    .tab {
+      padding: 0.6rem 1.3rem;
+      background: transparent;
+      border: 2px solid var(--border);
+      border-right: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all .15s;
+    }
+    .tab:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .tab:last-child { border-right: 2px solid var(--border); border-radius: 0 var(--radius) var(--radius) 0; }
+    .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* Results info bar */
+    .results-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.875rem; color: var(--muted);
+    }
+    .results-bar strong { color: var(--text); }
+
+    /* Result card */
+    .result-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid transparent;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .result-card:hover { border-left-color: var(--primary); box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
+    .result-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .result-title { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 0.3rem; }
+    .result-title a { color: inherit; text-decoration: none; }
+    .result-title a:hover { text-decoration: underline; }
+    .score-badge {
+      background: var(--accent);
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .result-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .result-meta span { margin-right: 1rem; }
+    .result-abstract { font-size: 0.875rem; color: #444; line-height: 1.6; }
+    .abstract-toggle {
+      font-size: 0.8rem; color: var(--primary); cursor: pointer;
+      background: none; border: none; padding: 0; margin-top: 0.3rem;
+    }
+
+    /* Author mode */
+    .author-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.5rem;
+      margin-bottom: 0.75rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .author-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.1rem; flex-shrink: 0;
+    }
+
+    /* Educational panel */
+    .edu-panel {
+      background: #eef4ff;
+      border: 1px solid #c3d8f5;
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+    }
+    .edu-panel h3 { color: var(--primary); margin-bottom: 0.5rem; font-size: 0.95rem; }
+    .edu-panel code {
+      background: #dbeafe; padding: 0.1rem 0.4rem;
+      border-radius: 4px; font-size: 0.8rem;
+    }
+
+    /* Loading & empty */
+    .loading { text-align: center; padding: 3rem; color: var(--muted); }
+    .spinner {
+      display: inline-block; width: 32px; height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty { text-align: center; padding: 3rem; color: var(--muted); font-size: 1rem; }
+
+    /* Pagination */
+    .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+    .pagination button {
+      padding: 0.4rem 0.8rem; border: 1.5px solid var(--border);
+      background: white; border-radius: 6px; cursor: pointer;
+      font-size: 0.875rem; transition: all .15s;
+    }
+    .pagination button:hover, .pagination button.active {
+      background: var(--primary); color: white; border-color: var(--primary);
+    }
+
+    /* Error */
+    .error-msg {
+      background: #fef2f2; border: 1px solid #fca5a5;
+      color: #991b1b; padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem;
+    }
+
+    /* Author name link (clickable in result cards) */
+    .author-link {
+      color: var(--primary-light);
+      cursor: pointer;
+      text-decoration: underline dotted;
+      background: none; border: none; padding: 0;
+      font: inherit; font-size: inherit;
+    }
+    .author-link:hover { color: var(--accent); }
+
+    /* Author profile modal */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1000;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+      width: 100%;
+      max-width: 720px;
+      overflow: hidden;
+      animation: slideIn .2s ease;
+    }
+    @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1.5rem;
+      display: flex; align-items: center; gap: 1.25rem;
+    }
+    .modal-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 700; flex-shrink: 0;
+    }
+    .modal-author-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .modal-author-sub { font-size: 0.85rem; opacity: 0.85; }
+    .modal-close {
+      margin-left: auto; background: rgba(255,255,255,0.15);
+      border: none; color: white; width: 32px; height: 32px;
+      border-radius: 50%; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.3); }
+
+    .modal-stats {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+    }
+    .modal-stat {
+      flex: 1; padding: 1rem; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .modal-stat:last-child { border-right: none; }
+    .modal-stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    .modal-stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+
+    .modal-body { padding: 1.25rem 1.5rem; max-height: 55vh; overflow-y: auto; }
+    .modal-section-title {
+      font-size: 0.8rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-pub {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-pub:last-child { border-bottom: none; }
+    .modal-pub-title {
+      font-weight: 600; color: var(--primary); margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+    }
+    .modal-pub-title a { color: inherit; text-decoration: none; }
+    .modal-pub-title a:hover { text-decoration: underline; }
+    .modal-pub-meta { font-size: 0.78rem; color: var(--muted); }
+
+    .modal-loading { text-align: center; padding: 2rem; color: var(--muted); }
+
+    @media (max-width: 600px) {
+      .options-row { flex-direction: column; gap: 0.75rem; }
+      .result-header { flex-direction: column; }
+      .modal-stats { flex-wrap: wrap; }
+      .modal-stat { min-width: 50%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🔬</div>
+    <div>
+      <h1>RepositóriUM Search Engine</h1>
+      <p>Motor de Pesquisa de Publicações Científicas · Universidade do Minho</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Search box -->
+    <div class="search-card">
+      <div class="search-row">
+        <input id="queryInput" type="text" placeholder="Pesquisar publicações... ex: machine learning, neural OR deep, author:Silva" autocomplete="off"/>
+        <button class="btn-search" onclick="doSearch(1)">🔍 Pesquisar</button>
+      </div>
+
+      <!-- Tabs for search mode -->
+      <div class="tabs" id="modeTabs">
+        <button class="tab active" onclick="setMode('freetext', this)">Texto Livre</button>
+        <button class="tab" onclick="setMode('boolean', this)">Booleano</button>
+        <button class="tab" onclick="setMode('author', this)">Autor</button>
+      </div>
+
+      <!-- Options -->
+      <div class="options-row" id="freeoptions">
+        <div class="option-group">
+          <label>Algoritmo</label>
+          <select id="algorithm">
+            <option value="custom">TF-IDF Personalizado</option>
+            <option value="sklearn">TF-IDF Sklearn</option>
+          </select>
+        </div>
+        <div class="option-group">
+          <label>Processamento</label>
+          <select id="processing">
+            <option value="stemming">Stemming (Porter)</option>
+            <option value="lemma">Lematização (WordNet)</option>
+          </select>
+        </div>
+        <div class="option-group">
+          <label>Ano (de)</label>
+          <input type="number" id="yearFrom" placeholder="ex: 2018" min="1990" max="2026" style="width:100px"/>
+        </div>
+        <div class="option-group">
+          <label>Ano (até)</label>
+          <input type="number" id="yearTo" placeholder="ex: 2024" min="1990" max="2026" style="width:100px"/>
+        </div>
+        <div class="option-group">
+          <label>Opções</label>
+          <div class="toggle-row">
+            <label class="toggle-label"><input type="checkbox" id="stopwords" checked/> Stop words</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results area -->
+    <div id="resultsArea"></div>
+  </main>
+
+  <!-- Author profile modal -->
+  <div class="modal-overlay" id="authorModal" onclick="closeAuthorModal(event)">
+    <div class="modal" id="modalBox">
+      <div class="modal-header">
+        <div class="modal-avatar" id="modalAvatar">?</div>
+        <div>
+          <div class="modal-author-name" id="modalName">—</div>
+          <div class="modal-author-sub" id="modalSub">Carregando publicações…</div>
+        </div>
+        <button class="modal-close" onclick="document.getElementById('authorModal').classList.remove('open')">✕</button>
+      </div>
+      <div class="modal-stats" id="modalStats"></div>
+      <div class="modal-body" id="modalBody">
+        <div class="modal-loading"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'http://localhost:8000';
+    let currentMode = 'freetext';
+    let currentPage = 1;
+    let lastQuery = '';
+    let lastTotal = 0;
+    const PAGE_SIZE = 10;
+
+    function setMode(mode, btn) {
+      currentMode = mode;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const opts = document.getElementById('freeoptions');
+      opts.style.display = mode === 'freetext' ? 'flex' : 'none';
+
+      const input = document.getElementById('queryInput');
+      if (mode === 'boolean') {
+        input.placeholder = 'Ex: machine AND learning NOT neural, (deep OR neural) AND network';
+      } else if (mode === 'author') {
+        input.placeholder = 'Nome do autor (parcial aceite) · ex: Silva, João';
+      } else {
+        input.placeholder = 'Pesquisar publicações... ex: machine learning, neural OR deep';
+      }
+    }
+
+    document.getElementById('queryInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doSearch(1);
+    });
+
+    async function doSearch(page) {
+      const q = document.getElementById('queryInput').value.trim();
+      if (!q) return;
+
+      currentPage = page;
+      lastQuery = q;
+
+      const area = document.getElementById('resultsArea');
+      area.innerHTML = `<div class="loading"><div class="spinner"></div><br/>A pesquisar…</div>`;
+
+      try {
+        let url;
+        if (currentMode === 'boolean') {
+          url = `${API}/search/boolean?q=${encodeURIComponent(q)}&top_k=100`;
+        } else if (currentMode === 'author') {
+          url = `${API}/search/author?name=${encodeURIComponent(q)}&top_k=100`;
+        } else {
+          const algo = document.getElementById('algorithm').value;
+          const stopw = document.getElementById('stopwords').checked;
+          const stem = document.getElementById('processing').value === 'stemming';
+          const yFrom = document.getElementById('yearFrom').value;
+          const yTo = document.getElementById('yearTo').value;
+          url = `${API}/search?q=${encodeURIComponent(q)}&algorithm=${algo}&use_stemming=${stem}&remove_stopwords=${stopw}&top_k=100`;
+          if (yFrom) url += `&year_from=${yFrom}`;
+          if (yTo) url += `&year_to=${yTo}`;
+        }
+
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        renderResults(data, q);
+      } catch (err) {
+        area.innerHTML = `<div class="error-msg">⚠️ Erro ao conectar à API: ${err.message}<br/><small>Certifique-se que o servidor FastAPI está a correr em <code>http://localhost:8000</code></small></div>`;
+      }
+    }
+
+    function renderResults(data, query) {
+      const area = document.getElementById('resultsArea');
+      lastTotal = data.total;
+
+      if (data.total === 0) {
+        area.innerHTML = `<div class="empty">🔍 Nenhum resultado encontrado para "<strong>${escHtml(query)}</strong>"</div>`;
+        return;
+      }
+
+      const pageResults = data.results.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+      const totalPages = Math.ceil(data.total / PAGE_SIZE);
+
+      let html = `<div class="results-bar">
+        <div>Encontrados <strong>${data.total}</strong> resultado${data.total !== 1 ? 's' : ''} para "<strong>${escHtml(query)}</strong>"</div>
+        <div>Modo: <strong>${getModeLabel()}</strong></div>
+      </div>`;
+
+      if (currentMode === 'author') {
+        pageResults.forEach(r => {
+          const authors = r.authors.join(', ') || 'N/A';
+          const initials = (r.authors[0] || 'A').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+          html += `<div class="author-card">
+            <div class="author-avatar">${initials}</div>
+            <div>
+              <div style="font-weight:700;color:var(--primary);margin-bottom:.25rem">
+                <button class="author-link" style="font-weight:700;font-size:1rem" onclick="openAuthorProfile('${escJs(r.authors[0] || '')}')">
+                  ${escHtml(r.authors[0] || 'Autor desconhecido')}
+                </button>
+              </div>
+              <div style="font-size:.875rem;margin-bottom:.25rem">${escHtml(r.title)}</div>
+              <div class="result-meta"><span>📅 ${r.year}</span><span>👤 ${escHtml(authors)}</span></div>
+              ${r.document_link ? `<a href="${r.document_link}" target="_blank" style="font-size:.8rem;color:var(--primary)">Ver publicação →</a>` : ''}
+            </div>
+          </div>`;
+        });
+      } else {
+        pageResults.forEach((r, i) => {
+          const abstract = r.abstract && r.abstract !== 'N/A' ? r.abstract : '';
+          const shortAbstract = abstract.length > 250 ? abstract.substring(0, 250) + '…' : abstract;
+          const scorePercent = (r.score * 100).toFixed(1);
+          const authors = Array.isArray(r.authors) ? r.authors.join('; ') : r.authors;
+          const authorsHtml = Array.isArray(r.authors)
+            ? r.authors.map(a => `<button class="author-link" onclick="openAuthorProfile('${escJs(a)}')">${escHtml(a)}</button>`).join('; ')
+            : escHtml(r.authors);
+
+          html += `<div class="result-card">
+            <div class="result-header">
+              <div>
+                <div class="result-title">
+                  ${r.document_link
+                    ? `<a href="${r.document_link}" target="_blank">${escHtml(r.title)}</a>`
+                    : escHtml(r.title)}
+                </div>
+              </div>
+              <div class="score-badge">⭐ ${scorePercent}%</div>
+            </div>
+            <div class="result-meta">
+              <span>👤 ${authorsHtml}</span>
+              <span>📅 ${r.year}</span>
+              ${r.doi && r.doi !== 'N/A' ? `<span>DOI: ${escHtml(r.doi)}</span>` : ''}
+            </div>
+            ${shortAbstract ? `<div class="result-abstract" id="abs_${i}">${escHtml(shortAbstract)}</div>
+            ${abstract.length > 250 ? `<button class="abstract-toggle" onclick="toggleAbstract(${i}, \`${escJs(abstract)}\`)">Mostrar mais ▼</button>` : ''}` : ''}
+          </div>`;
+        });
+      }
+
+      // Pagination
+      if (totalPages > 1) {
+        html += '<div class="pagination">';
+        if (currentPage > 1) html += `<button onclick="doSearch(${currentPage-1})">‹ Anterior</button>`;
+        for (let p = Math.max(1, currentPage-2); p <= Math.min(totalPages, currentPage+2); p++) {
+          html += `<button class="${p===currentPage?'active':''}" onclick="doSearch(${p})">${p}</button>`;
+        }
+        if (currentPage < totalPages) html += `<button onclick="doSearch(${currentPage+1})">Próximo ›</button>`;
+        html += '</div>';
+      }
+
+      // Educational panel
+      if (currentMode === 'freetext') {
+        const algo = document.getElementById('algorithm').value;
+        html += `<div class="edu-panel">
+          <h3>ℹ️ Como funciona esta pesquisa</h3>
+          <p>
+            A consulta <code>${escHtml(query)}</code> foi processada com
+            <strong>${algo === 'sklearn' ? 'TF-IDF sklearn' : 'TF-IDF personalizado'}</strong>.
+            Cada documento recebe um <em>score</em> de similaridade do cosseno em relação ao vector TF-IDF da query.
+            <br/>• <strong>TF</strong> (Term Frequency): quantas vezes o termo aparece no documento.
+            <br/>• <strong>IDF</strong> (Inverse Document Frequency): penaliza termos muito comuns.
+            <br/>• <strong>Cosseno</strong>: mede o ângulo entre os vectores query e documento (0 = nada em comum, 1 = idênticos).
+          </p>
+        </div>`;
+      } else if (currentMode === 'boolean') {
+        html += `<div class="edu-panel">
+          <h3>ℹ️ Pesquisa Booleana</h3>
+          <p>
+            Operadores suportados: <code>AND</code> <code>OR</code> <code>NOT</code> e parênteses.
+            Termos separados por espaço são tratados como <code>AND</code> implícito.
+            Os resultados são obtidos por interseção/união de listas de postings do índice invertido.
+          </p>
+        </div>`;
+      }
+
+      area.innerHTML = html;
+    }
+
+    function toggleAbstract(i, fullText) {
+      const el = document.getElementById(`abs_${i}`);
+      const btn = el.nextElementSibling;
+      if (btn.textContent.includes('▼')) {
+        el.textContent = fullText;
+        btn.textContent = 'Mostrar menos ▲';
+      } else {
+        el.textContent = fullText.substring(0, 250) + '…';
+        btn.textContent = 'Mostrar mais ▼';
+      }
+    }
+
+    function getModeLabel() {
+      return { freetext: 'Texto Livre (TF-IDF)', boolean: 'Booleano', author: 'Pesquisa de Autor' }[currentMode];
+    }
+
+    // ------------------------------------------------------------------
+    // Author profile modal
+    // ------------------------------------------------------------------
+
+    async function openAuthorProfile(authorName) {
+      const modal = document.getElementById('authorModal');
+      const modalName = document.getElementById('modalName');
+      const modalSub = document.getElementById('modalSub');
+      const modalAvatar = document.getElementById('modalAvatar');
+      const modalStats = document.getElementById('modalStats');
+      const modalBody = document.getElementById('modalBody');
+
+      // Initials for avatar
+      const initials = authorName.split(/[\s,]+/).filter(Boolean)
+        .map(w => w[0]).join('').substring(0, 2).toUpperCase();
+
+      modalAvatar.textContent = initials;
+      modalName.textContent = authorName;
+      modalSub.textContent = 'A carregar publicações…';
+      modalStats.innerHTML = '';
+      modalBody.innerHTML = '<div class="modal-loading"><div class="spinner"></div></div>';
+      modal.classList.add('open');
+
+      try {
+        const resp = await fetch(`${API}/search/author?name=${encodeURIComponent(authorName)}&top_k=100`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+
+        const pubs = data.results;
+        const total = pubs.length;
+
+        // Compute stats
+        const years = pubs.map(p => parseInt(p.year)).filter(y => !isNaN(y));
+        const minYear = years.length ? Math.min(...years) : '—';
+        const maxYear = years.length ? Math.max(...years) : '—';
+
+        // Co-authors
+        const coauthors = new Set();
+        pubs.forEach(p => {
+          (p.authors || []).forEach(a => {
+            if (a !== authorName) coauthors.add(a);
+          });
+        });
+
+        modalSub.textContent = `${total} publicação${total !== 1 ? 'ões' : ''} encontrada${total !== 1 ? 's' : ''}`;
+
+        modalStats.innerHTML = `
+          <div class="modal-stat">
+            <div class="modal-stat-value">${total}</div>
+            <div class="modal-stat-label">Publicações</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-value">${years.length ? `${minYear}–${maxYear}` : '—'}</div>
+            <div class="modal-stat-label">Período</div>
+          </div>
+          <div class="modal-stat">
+            <div class="modal-stat-value">${coauthors.size}</div>
+            <div class="modal-stat-label">Co-autores</div>
+          </div>
+        `;
+
+        if (total === 0) {
+          modalBody.innerHTML = '<div class="modal-loading">Nenhuma publicação encontrada.</div>';
+          return;
+        }
+
+        // Sort by year desc
+        const sorted = [...pubs].sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0));
+
+        let html = `<div class="modal-section-title">📄 Publicações (${total})</div>`;
+        sorted.forEach(p => {
+          const coAuth = (p.authors || []).filter(a => a !== authorName).join(', ');
+          html += `<div class="modal-pub">
+            <div class="modal-pub-title">
+              ${p.document_link && p.document_link !== 'N/A'
+                ? `<a href="${p.document_link}" target="_blank">${escHtml(p.title)}</a>`
+                : escHtml(p.title)}
+            </div>
+            <div class="modal-pub-meta">
+              📅 ${p.year}
+              ${coAuth ? ` · com ${escHtml(coAuth)}` : ''}
+              ${p.doi && p.doi !== 'N/A' ? ` · DOI: ${escHtml(p.doi)}` : ''}
+            </div>
+          </div>`;
+        });
+
+        // Co-authors section
+        if (coauthors.size > 0) {
+          html += `<div class="modal-section-title" style="margin-top:1.25rem">👥 Co-autores frequentes</div>`;
+          html += '<div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">';
+          [...coauthors].slice(0, 12).forEach(ca => {
+            html += `<button class="author-link" style="border:1px solid var(--border);border-radius:20px;padding:.25rem .75rem;font-size:.8rem;"
+              onclick="openAuthorProfile('${escJs(ca)}')">${escHtml(ca)}</button>`;
+          });
+          html += '</div>';
+        }
+
+        modalBody.innerHTML = html;
+
+      } catch (err) {
+        modalBody.innerHTML = `<div class="modal-loading">⚠️ Erro: ${err.message}</div>`;
+      }
+    }
+
+    function closeAuthorModal(event) {
+      // Close only if clicking the overlay itself (not the modal box)
+      if (event.target === document.getElementById('authorModal')) {
+        document.getElementById('authorModal').classList.remove('open');
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.getElementById('authorModal').classList.remove('open');
+    });
+
+    function escHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function escJs(str) {
+      return String(str || '').replace(/`/g,'\\`').replace(/\$/g,'\\$');
+    }
+  </script>
+</body>
+</html>
