@@ -1,34 +1,37 @@
 [
     {
-        "title": "Foreword to the special section on recent advances in graphics and interaction",
-        "year": "2022",
-        "doi": "10.1016/j.cag.2021.12.006",
-        "abstract": "This special section on Recent Advances in Graphics and In- teraction features the papers submitted to Computers & Graphics (C&G) and presented at the 2021 edition of the International Conference on Graphics and Interaction – ICGI’2021 – which was held on November 4 and 5, 2021 at the Faculty of Engineering of the University of Porto, Portugal, as a joint organization with the Eurographics Portuguese Chapter — GPCG.",
+        "title": "A FIPA-compliant framework for integrating rule engines into software agents for supporting communication and collaboration in a multiagent platform",
+        "year": "2019",
+        "doi": "10.1007/978-3-030-16184-2_13",
+        "abstract": "Production rules have been traditionally considered a good knowledge representation formalism for creating expert systems, and also as a good mechanism for building intelligence within software agents due to the flexibility of their declarative knowledge representation. But the use of rules and rule engines for implementing behaviors inside agents in the context of a multiagent environment has a number of challenges if one wants to adhere and preserve the defining characteristics of agency and support the kind of communication and collaboration mechanisms needed by multiagent systems. This paper describes a framework, and its implementation, for the integration of production rules reasoning mechanisms inside software agents in the context of a multiagent platform, preserving the defining characteristics of agency and accomplishing the well-established FIPA standards for agent interaction. The implementation has been accomplished by using either CLIPS or Jess as the rule engine, but it can be extended to other formalisms. JADE was chosen as the multiagent platform for developing and testing the solution. The proposed framework includes the uncoupled integration of the rule inference engine into the agent and the adherence to FIPA specifications about using protocols and communication processes. The resulting framework can be used to adapt legacy expert systems whose functionality can be divided to be performed by separate agents or to build new, distributed intelligent systems exploiting the capacities of a multiagent platform at different levels. To show the validity of the approach, a functional test environment was built and is available for downloading.",
         "authors": [
-            "Rodrigues, Nuno",
-            "Mendes, Daniel",
-            "Santos, Luís Paulo",
-            "Bouatouch, Kadi"
+            "Aguayo-Canela, Francisco J.",
+            "Alaiz-Moretón, Héctor",
+            "García-Rodríguez, Isaías",
+            "Benavides-Cuéllar, Carmen",
+            "Benítez-Andrades, José Alberto",
+            "Novais, Paulo"
         ],
         "document_link": "N/A"
     },
     {
-        "title": "N/A",
-        "year": "2022",
-        "doi": "10.1145/3472294",
-        "abstract": "This article proposes a Markov Chain Monte Carlo (MCMC) rendering algorithm based on a family of guided transition kernels. The kernels exploit properties of ensembles of light transport paths, which are distributed according to the lighting in the scene, and utilize this information to make informed decisions for guiding local path sampling. Critically, our approach does not require caching distributions in world space, saving time and memory, yet it is able to make guided sampling decisions based on whole paths. We show how this can be implemented efficiently by organizing the paths in each ensemble and designing transition kernels for MCMC rendering based on a carefully chosen subset of paths from the ensemble. This algorithm is easy to parallelize and leads to improvements in variance when rendering a variety of scenes.",
+        "title": "LOOM: Interweaving tightly coupled visualization and numeric simulation framework",
+        "year": "2021",
+        "doi": "10.1145/3490138.3490139",
+        "abstract": "Traditional post-hoc high-fidelity scientific visualization (HSV) of numerical simulations requires multiple I/O check-pointing to inspect the simulation progress. The costs of these I/O operations are high and can grow exponentially with increasing problem sizes. In situ HSV dispenses with costly check-pointing I/O operations, but requires additional computing resources to generate the visualization, increasing power and energy consumption. In this paper we present LOOM, a new interweaving approach supported by a task scheduling framework to allow tightly coupled in situ visualization without significantly adding to the overall simulation runtime. The approach exploits the idle times of the numerical simulation threads, due to workload imbalances, to perform the visualization steps. Overall execution time (simulation plus visualization) is minimized. Power requirements are also minimized by sharing the same computational resources among numerical simulation and visualization tasks. We demonstrate that LOOM reduces time to visualization by 3 × compared to a traditional non-interwoven pipeline. Our results here demonstrate good potential for additional gains for large distributed-memory use cases with larger interleaving opportunities.",
         "authors": [
-            "Bashford-Rogers, Thomas",
+            "Barbosa, Joao",
+            "Navratil, Paul",
             "Santos, Luís Paulo",
-            "Marnerides, Demetris",
-            "Debattista, Kurt"
-        ]
+            "Fussell, Donald"
+        ],
+        "document_link": "N/A"
     },
     {
-        "title": "NER in archival finding aids: extended",
-        "year": "2022-01-17",
-        "doi": "10.3390/make4010003",
-        "abstract": "The amount of information preserved in Portuguese archives has increased over the years. These documents represent a national heritage of high importance, as they portray the country’s history. Currently, most Portuguese archives have made their finding aids available to the public in digital format, however, these data do not have any annotation, so it is not always easy to analyze their content. In this work, Named Entity Recognition solutions were created that allow the identification and classification of several named entities from the archival finding aids. These named entities translate into crucial information about their context and, with high confidence results, they can be used for several purposes, for example, the creation of smart browsing tools by using entity linking and record linking techniques. In order to achieve high result scores, we annotated several corpora to train our own Machine Learning algorithms in this context domain. We also used different architectures, such as CNNs, LSTMs, and Maximum Entropy models. Finally, all the created datasets and ML models were made available to the public with a developed web platform, NER@DI.",
+        "title": "Towards Entity Linking, NER in archival finding aids",
+        "year": "2021-09-13",
+        "doi": "N/A",
+        "abstract": "The amount of information present in Portuguese archives has been increasing exponentially over the years. At the moment, the majority of the data is already available to the public in digital format, however, the records are stored as unstructured text, making its data processing challenging. In this way, it is intended to perform a semantic interpretation of these documents through the identification and classification of Named Entities. For this purpose, the use of Natural Language Processing tools is proposed, training Machine Learning algorithms capable of accurately recognizing entities in this context. Finally, it is presented a Web platform that implements all the models trained in this paper, as well as some tools that gave support to the entity extraction process.",
         "authors": [
             "Cunha, Luís Filipe da Costa",
             "Ramalho, José Carlos"
@@ -36,176 +39,148 @@
         "document_link": "N/A"
     },
     {
-        "title": "Heterogeneous implementation of a Voronoi cell-based SVP solver",
-        "year": "2019-09",
-        "doi": "10.1109/ACCESS.2019.2939142",
-        "abstract": "This paper presents a new, heterogeneous CPU+GPU attacks against lattice-based (postquantum) cryptosystems based on the Shortest Vector Problem (SVP), a central problem in lattice-based cryptanalysis. To the best of our knowledge, this is the first SVP-attack against lattice-based cryptosystems using CPUs and GPUs simultaneously. We show that Voronoi-cell based CPU+GPU attacks, algorithmically improved in previous work, are suitable for the proposed massively parallel platforms. Results show that 1) heterogeneous platforms are useful in this scenario, as they increment the overall memory available in the system (as GPU's memory can be used effectively), a typical bottleneck for Voronoi-cell algorithms, and we have also been able to increase the performance of the algorithm on such a platform, by successfully using the GPU as a co-processor, 2) this attack can be successfully accelerated using conventional GPUs and 3) we can take advantage of multiple GPUs to attack lattice-based cryptosystems. Experimental results show a speedup up to 7.6× for 2 GPUs hosted by an Intel Xeon E5-2695 v2 CPU (12 cores ×2 sockets) using only 1 core and gains in the order of 20% for 2 GPUs hosted by the same machine using all 22 CPU threads (2 are reserved for orchestrating the GPUs), compared to single-CPU execution using the entire 24 threads available.",
+        "title": "Development of self-diagnosis tests system using a DSL for creating new test suites for integration in a cyber-physical system",
+        "year": "2021-07-02",
+        "doi": "10.4230/OASIcs.SLATE.2021.19",
+        "abstract": "Testing Cyber-physical systems (CPS) requires highly qualified engineers to design the tests since its computational part is programmed in low-level languages. The origin of this work arises from the need to find a solution that optimizes this problem and allows abstracting the current methods so that the tests can be created and executed more efficiently. We intend to do this by creating a self-diagnosis tests system that allows us to automate some of the current processes in the creation and execution of test suites. The work presented here addresses the problem by creating a new self-diagnosis tests system that will guarantee the reliability and integrity of the CPS. In detail, this paper begins by exposing a study on the current state of the art of test automation, Keyword-driven Testing (KDT) methodology and Domain-specific Languages (DSL). A new modular and extensible architecture is proposed for self-diagnosis tests systems based on two main concepts: the creation of a DSL combined with the use of the KDT methodology, as well as a methodology to extend it and integrate it into a CPS. A new self-diagnosis tests system has been proposed that applies the proposed architecture proving that it is possible to carry out the self-diagnosis in real-time of the CPS and allowing the integration of any type of test. To validate the implementation of the system, 28 test cases were carried out to cover all its functionalities. The results show that all test cases passed and, therefore, the system meets all the proposed objectives.",
         "authors": [
-            "Falcão, Gabriel",
-            "Cabeleira, Filipe",
-            "Mariano, Artur",
-            "Santos, Luís Paulo"
-        ]
-    },
-    {
-        "title": "N/A",
-        "year": "2020",
-        "doi": "N/A",
-        "abstract": "Although hardware is generally seen as the main culprit for a computer's energy usage, software too has a tremendous impact on the energy spent. Unfortunately, there is still not enough support for software developers so they can make their code more energy-aware.This paper proposes a technique to detect energy inefficient fragments in the source code of a software system. Test cases are executed to obtain energy consumption measurements, and a statistical method, based on spectrum-based fault localization, is introduced to relate energy consumption to the source code. The result of our technique is an energy ranking of source code fragments pointing developers to possible energy leaks in their code. This technique was implemented in the SPELL toolkit.Finally, in order to evaluate our technique, we conducted an empirical study where we asked participants to optimize the energy efficiency of a software system using our tool, while also having two other groups using no tool assistance and a profiler, respectively. We showed statistical evidence that developers using our technique were able to improve the energy efficiency by 43% on average, and even out performing a profiler for energy optimization. (C) 2019 Elsevier Inc. All rights reserved.",
-        "authors": [
-            "Pereira, Rui Alexandre Afonso",
-            "Carção, Tiago Alves",
-            "Couto, Marco Domingos Mendes",
-            "Cunha, Jácome",
-            "Fernandes, João Paulo",
-            "Saraiva, João"
-        ]
-    },
-    {
-        "title": "N/A",
-        "year": "2006",
-        "doi": "10.1007/11676904_2",
-        "abstract": "Nowadays, data handled by an institution or company is spread out by more than one database and lots of documents of different types. To extract the information implicit in that data, it is necessary to pick parts from those various archives. To obtain a general overview, those information slices should be integrated. Different approaches can be followed to achieve that integration, ranging from the merge of resources till the fusion of the extracted parts. In this paper, we introduce Metamorphosis – a Topic Maps oriented environment that enables a conceptual navigation among heterogenous information systems – and we argue that Metamorphosis can be used to achieve, via Topic Maps, the referred semantic integration.",
-        "authors": [
+            "Pereira, Ricardo B.",
             "Ramalho, José Carlos",
-            "Librelotto, Giovani Rubert",
-            "Henriques, Pedro Rangel"
-        ]
-    },
-    {
-        "title": "Predicting plateau pressure in intensive medicine for ventilated patients",
-        "year": "2015",
-        "doi": "10.1007/978-3-319-16528-8_17",
-        "abstract": "Barotrauma is identified as one of the leading diseases in Ventilated Patients. This type of problem is most common in the Intensive Care Units. In order to prevent this problem the use of Data Mining (DM) can be useful for predicting their occurrence. The main goal is to predict the occurence of Barotrauma in order to support the health professionals taking necessary precautions. In a first step intensivists identified the Plateau Pressure values as a possible cause of Barotrauma. Through this study DM models (classification) where induced for predicting the Plateau Pressure class (>=30 cm𝐻2O) in a real environment and using real data. The present study explored and assessed the possibility of predicting the Plateau pressure class with high accuracies. The dataset used only contained data provided by the ventilators. The best models are able to predict the Plateau Pressure with an accuracy ranging from 95.52% to 98.71%.",
-        "authors": [
-            "Oliveira, Sérgio",
-            "Portela, Filipe",
-            "Santos, Manuel",
-            "Machado, José Manuel",
-            "Abelha, António",
-            "Silva, Álvaro",
-            "Rua, Fernando"
+            "Brito, Miguel A."
         ],
         "document_link": "N/A"
     },
     {
-        "title": "Information systems assessment in pathologic anatomy service",
-        "year": "2015",
-        "doi": "10.1007/978-3-319-16528-8_19",
-        "abstract": "Information technologies changed the way of how the health organizations work, contributing to their effectiveness, efficiency and sustainability. Hospital Information Systems (HIS) are emerging on all of health institutions, helping health professionals and patients. However, HIS are not always implemented and used in the best way, leading to low levels of benefits and acceptance by users of these systems. In order to mitigate this problem, it is essential to take measures able to ensure if the HIS and their interfaces are designed in a simple and interactive way. With this in mind, a study to measure the user satisfaction and their opinion was made. It was applied the Technology Acceptance Model (TAM) on a HIS implemented on various hospital centers (AIDA), being used the Pathologic Anatomy Service. The study identified weakness and strengths features of AIDA and it pointed some solutions to improve the medical record.",
+        "title": "Major Minors - Ontological representation of minorities by newspapers",
+        "year": "2021-07-01",
+        "doi": "10.4230/OASIcs.SLATE.2021.3",
+        "abstract": "The stigma associated with certain minorities has changed throughout the years, yet there’s no central data repository that enables a concrete tracking of this representation. Published articles on renowned newspapers are a way of determining the public perception on this subject, mainly digital newspapers, being it through the media representation (text and photo illustrations) or user comments. The present paper seeks to showcase a project that attempts to fulfill that shortage of data by providing a repository in the form of an ontology: RDF triplestores composing a semantic database (W3C standards for Semantic Web). This open-source project aims to be a research tool for mapping and studying the representation of minority groups in a Portuguese journalistic context over the course of two decades.",
         "authors": [
-            "Novo, Ana",
-            "Duarte, Júlio",
-            "Portela, Filipe",
-            "Abelha, António",
-            "Santos, Manuel",
-            "Machado, José Manuel"
+            "Martins, Paulo Jorge Pereira",
+            "Costa, Leandro José Abreu Dias",
+            "Ramalho, José Carlos"
         ],
         "document_link": "N/A"
     },
     {
-        "title": "Step towards of a homemade business intelligence solution: A case study in textile industry",
-        "year": "2015",
-        "doi": "10.1007/978-3-319-16486-1_36",
-        "abstract": "Nowadays, organizations are increasingly looking to invest in business intelligence solutions, mainly private companies in order to get advantage over its competitors, however they do not know what is necessary. Business intelligence allows an analysis of consolidated information in order to obtain more specific outlets and certain indications in order to support the decision making process. You can take the right decision based on the data collected from different information systems present in the organization and outside of them. The textile sector is a sector where concept of Business Intelligence it is not many explored yet. Actually there are few textile companies that have a BI platform. Thus, the article objective is present an architecture and show all the steps by which companies need to spend to implement a successful free homemade Business Intelligence system. As result the proposed approach it was validated using real data aiming assess the steps defined.",
+        "title": "DataGen: JSON/XML Dataset Generator",
+        "year": "2021-07-01",
+        "doi": "10.4230/OASIcs.SLATE.2021.6",
+        "abstract": "In this document, it is described the steps towards DataGen’s implementation. DataGen is a versatile and powerful tool that allows for quick prototyping and testing of software applications, since currently too few solutions offer both the complexity and scalability necessary to generate adequate datasets in order to feed a data API or a more complex APP, enabling their testing with appropriate data volume and complexity. DataGen’s core is a Domain Specific Language (DSL) that was created to specify datasets. This language suffered several updates: repeating fields (with no limit), fuzzy fields (statistically generated), lists, high order functions over lists, custom made transformation functions. The final result is a diversified algebra that allows the generation of very complex datasets coping with very convoluted requirements. Throughout the paper, several examples of the possibilities will be given. After generating a dataset, DataGen gives the user the possibility to generate a RESTFul data API with it, creating a running prototype. This solution has already been used in real life cases, described with more detail throughout the paper, in which it was able to create the intended datasets successfully. These allowed the application’s performance to be tested and for the right adjustments to be made. The tool is currently being deployed for general use.",
         "authors": [
-            "Carvalho, Sandrina",
-            "Portela, Filipe",
-            "Santos, Manuel",
-            "Abelha, António",
-            "Machado, José Manuel"
+            "Santos, Filipa Alves dos",
+            "Cardoso, Hugo André Coelho",
+            "Costa, João da Cunha e",
+            "Carvalho, Válter Ferreira Picas",
+            "Ramalho, José Carlos"
         ],
         "document_link": "N/A"
     },
     {
-        "title": "An assessment of chronic kidney diseases",
-        "year": "2015",
-        "doi": "10.1007/978-3-319-16486-1_18",
-        "abstract": "Kidney renal failure means that one’s kidney have unexpectedlystoppedfunctioning,i.e.,oncechronicdiseaseis exposed, the presence or degree of kidney dysfunction and its progression must be assessed, and the underlying syndrome has to be diagnosed. Although the patient’s history and physical examination may denote good practice, some key information has to be obtained from valuation of the glomerular filtration rate, and the analysis of serum biomarkers. Indeed, chronic kidney sickness depicts anomalous kidney function and/or its makeup, i.e., there is evidence that treatment may avoid or delay its progression, either by reducing and prevent the development of some associated complications, namely hypertension, obesity, diabetes mellitus, and cardiovascular complications. Acute kidney injury appears abruptly, with a rapiddeteriorationoftherenalfunction,butisoftenreversible if it is recognized early and treated promptly. In both situations, i.e., acute kidney injury and chronic kidney disease, an early intervention can significantly improve the prognosis. The assessment of these pathologies is therefore mandatory, although it is hard to do it with traditional methodologies and existing tools for problem solving. Hence, in this work, we will focus on the development of a hybrid decision support system, in terms of its knowledge representation and reasoning procedures based on Logic Programming, that will allow onetoconsiderincomplete,unknown,and evencontradictory information, complemented with an approach to computing centered on Artificial Neural Networks, in order to weigh the Degree-of-Confidence that one has on such a happening. The present study involved 558 patients with an age average of 51.7 years and the chronic kidney disease was observed in 175 cases. The dataset comprise twenty four variables, grouped into five main categories. The proposed model showed a good performance in the diagnosis of chronic kidney disease, since the sensitivity and the specificity exhibited values range between 93.1 and 94.9 and 91.9–94.2 %, respectively.",
+        "title": "NER in Archival Finding Aids",
+        "year": "2021-07-01",
+        "doi": "10.4230/OASIcs.SLATE.2021.8",
+        "abstract": "At the moment, the vast majority of Portuguese archives with an online presence use a software solution to manage their finding aids: e. g. Digitarq or Archeevo. Most of these finding aids are written in natural language without any annotation that would enable a machine to identify named entities, geographical locations or even some dates. That would allow the machine to create smart browsing tools on top of those record contents like entity linking and record linking. In this work we have created a set of datasets to train Machine Learning algorithms to find those named entities and geographical locations. After training several algorithms we tested them in several datasets and registered their precision and accuracy. These results enabled us to achieve some conclusions about what kind of precision we can achieve with this approach in this context and what to do with the results: do we have enough precision and accuracy to create toponymic and anthroponomic indexes for archival finding aids? Is this approach suitable in this context? These are some of the questions we intend to answer along this paper.",
         "authors": [
-            "Neves, José",
-            "Rosário Martins, M.",
-            "Vilhena, João",
-            "Neves, João",
-            "Gomes, Sabino",
-            "Abelha, António",
-            "Machado, José Manuel",
-            "Vicente, Henrique"
+            "Cunha, Luís Filipe da Costa",
+            "Ramalho, José Carlos"
         ],
         "document_link": "N/A"
     },
     {
-        "title": "Logic programming and artificial neural networks in breast cancer detection",
-        "year": "2015",
-        "doi": "10.1007/978-3-319-19222-2_18",
-        "abstract": "About 90% of breast cancers do not cause or are capable of producing death if detected at an early stage and treated properly. Indeed, it is still not known a specific cause for the illness. It may be not only a beginning, but also a set of associations that will determine the onset of the disease. Undeniably, there are some factors that seem to be associated with the boosted risk of the malady. Pondering the present study, different breast cancer risk assessment models where considered. It is our intention to develop a hybrid decision support system under a formal framework based on Logic Programming for knowledge representation and reasoning, complemented with an approach to computing centered on Artificial Neural Networks, to evaluate the risk of developing breast cancer and the respective Degree-of-Confidence that one has on such a happening.",
+        "title": "A quantum algorithm for ray casting using an orthographic camera",
+        "year": "2019",
+        "doi": "10.1109/ICGI47575.2019.8955061",
+        "abstract": "Quantum computing has the potential to provide solutions to many problems which are challenging or out of reach of classical computers. There are several problems in rendering which are amenable to being solved in quantum computers, but these have yet to be demonstrated in practice. This work takes a first step in applying quantum computing to one of the most fundamental operations in rendering: ray casting. This technique computes visibility between two points in a 3D model of the world which is described by a collection of geometric primitives. The algorithm returns, for a given ray, which primitive it intersects closest to its origin. Without a spatial acceleration structure, the classical complexity for this operation is O(N). In this paper, we propose an implementation of Grover's Algorithm (a quantum search algorithm) for ray casting. This provides a quadratic speed up allowing for visibility evaluation for unstructured primitives in O(√N). However, due to technological limitations associated with current quantum computers, in this work the geometrical setup is limited to rectangles and parallel rays (orthographic projection).",
         "authors": [
-            "Neves, José",
-            "Guimarães, Tiago",
-            "Gomes, Sabino",
-            "Vicente, Henrique",
-            "Santos, Mariana",
-            "Neves, João",
-            "Machado, José",
-            "Novais, Paulo"
+            "Alves, Carolina",
+            "Santos, Luís Paulo",
+            "Bashford-Rogers, Thomas"
         ],
         "document_link": "N/A"
     },
     {
-        "title": "Abstract computation in schizophrenia detection through artificial neural network based systems",
-        "year": "2015",
-        "doi": "10.1155/2015/467178",
-        "abstract": "Schizophrenia stands for a long-lasting state of mental uncertainty that may bring to an end the relation among behavior, thought, and emotion; that is, it may lead to unreliable perception, not suitable actions and feelings, and a sense of mental fragmentation. Indeed, its diagnosis is done over a large period of time; continuos signs of the disturbance persist for at least 6 (six) months. Once detected, the psychiatrist diagnosis is made through the clinical interview and a series of psychic tests, addressed mainly to avoid the diagnosis of other mental states or diseases. Undeniably, the main problem with identifying schizophrenia is the difficulty to distinguish its symptoms from those associated to different untidiness or roles. Therefore, this work will focus on the development of a diagnostic support system, in terms of its knowledge representation and reasoning procedures, based on a blended of Logic Programming and Artificial Neural Networks approaches to computing, taking advantage of a novel approach to knowledge representation and reasoning, which aims to solve the problems associated in the handling (i.e., to stand for and reason) of defective information.",
+        "title": "nSharma: Numerical Simulation Heterogeneity Aware Runtime Manager for OpenFOAM",
+        "year": "2018",
+        "doi": "10.1007/978-3-319-93698-7_33",
+        "abstract": "CFD simulations are a fundamental engineering application,implying huge workloads, often with dynamic behaviour due to run-time mesh refinement. Parallel processing over heterogeneous distributedmemory clusters is often used to process such workloads. The executionof dynamic workloads over a set of heterogeneous resources leads to loadimbalances that severely impacts execution time, when static uniformload distribution is used. This paper proposes applying dynamic, het-erogeneity aware, load balancing techniques within CFD simulations.nSharma, a software package that fully integrates with OpenFOAM, ispresented and assessed. Performance gains are demonstrated, achievedby reducing busy times standard deviation among resources, i.e. hetero-geneous computing resources are kept busy with useful work due to aneffective workload distribution. To best of authors’ knowledge, nSharmais the first implementation and integration of heterogeneity aware loadbalancing in OpenFOAM and will be made publicly available in order tofoster its adoption by the large community of OpenFOAM users.",
         "authors": [
-            "Cardoso, L.",
-            "Marins, F.",
-            "Magalhães, R.",
-            "Marins, N.",
-            "Oliveira, T.",
-            "Vicente, H.",
-            "Abelha, António",
-            "Machado, José Manuel",
-            "Neves, J."
+            "Ribeiro, Roberto",
+            "Santos, Luís Paulo",
+            "Nóbrega, J. M."
         ],
         "document_link": "N/A"
     },
     {
-        "title": "Educase – intelligent system for pedagogical advising using case-based reasoning",
-        "year": "2015-04",
+        "title": "Plataforma CLAV: contributo para a disponibilização de dados abertos da Administração Pública em Portugal",
+        "year": "2019-07-09",
         "doi": "N/A",
-        "abstract": "This paper introduces a proposal scheme for an Intelligent System applied to Pedagogical Advising using Case-Based Reasoning, to find consolidated solutions before used for the new problems, making easier the task of advising students to the pedagogical staff. We do intend, through this work, introduce the motivation behind the choices for this system structure, justifying the development of an incremental and smart web system who learns bests solutions for new cases when it’s used, showing technics and technology.",
+        "abstract": "Nos últimos tempos temos assistido à definição de políticas e estratégias, na Europa e em Portugal, para a disponibilização de dados abertos, nos domínios da ciência aberta e da Administração Pública (AP). Neste último caso, a política europeia de livre acesso aos dados foi preconizada pela Diretiva 2013/37/UE do Parlamento Europeu e do Conselho, de 26 de junho de 2013, transposta para a Lei n.o 26/2016, que aprova o regime de acesso à informação administrativa e promove a sua reutilização através do uso de formatos de dados abertos. Também a Declaração de Tallinn, de 2017, que segue o “Plano de ação europeu (2016-2020) para a administração pública em linha”, reconheceu a necessidade de uma maior abertura e transparência no acesso dos cidadãos aos dados recolhidos pela AP. Em simultâneo, em Portugal, têm sido promovidas políticas para a transformação digital na Administração Pública, consignada em diplomas e documentos orientadores, como a com 3 eixos: 1/ integração e interoperabilidade; 2/ inovação e competitividade e 3/ partilha de Resolução do Conselho de Ministros (RCM) n.o 108/2017, de 26 de julho, que aprovou a Estratégia TIC 2020, recursos. Merece ainda destaque a RCM n.o 51/2017, de 19 de abril, que pretende reduzir o consumo de papel na Administração Pública, “promovendo a otimização de processos e a modernização de procedimentos administrativos”, nomeadamente através da desmaterialização de processos, da promoção da adoção de sistemas de gestão documental eletrónica ou outros e da digitalização de documentos destinados a ser arquivados. Entre as medidas previstas estão a adoção de processos de “classificação, avaliação e seleção de informação, tendo em consideração, sempre que possível, os princípios de uma Macroestrutura Funcional (MEF) e a Avaliação Supra- Institucional na Administração (ASIA)”. Neste contexto, o organismo de coordenação da política arquivística – a Direção-Geral do Livro, dos Arquivos e das Bibliotecas (DGLAB) – tem vindo a desenvolver estratégias de promoção da interoperabilidade semântica e de gestão da informação arquivística, nomeadamente ao nível do seu registo, classificação e avaliação. Para responder às necessidades neste domínio, a DGLAB levou a efeito um conjunto de iniciativas, de que se destaca a divulgação do esquema Metainformação para a Interoperabilidade (MIP), utilizado no Modelo de Dados Canónico da plataforma de interoperabilidade na Administração Pública (iAP), bem como a publicação da Lista Consolidada para a classificação e avaliação da informação pública (LC), que serve de referencial para a construção normalizada dos planos de classificação e tabelas de seleção das entidades que executam funções de Estado. A Lista Consolidada é o resultado de projetos que se sucederam no tempo e que visaram a construção de uma linguagem comum para a classificação da informação arquivística, numa perspetiva funcional, passível de utilizar no registo e na troca de documentos via iAP, bem como para a avaliação dessa informação, numa perspetiva suprainstitucional. Referimo-nos ao projeto Macroestrutura Funcional (MEF), que teve por objetivo a identificação das funções e subfunções executadas pela Administração Pública, ao projeto “Harmonização de terceiros níveis em planos de classificação conformes à MEF”, que teve por finalidade a identificação de processos de negócio em que se decompõem as funções, e ao projeto “Avaliação suprainstitucional da informação arquivística” (ASIA), que teve por objetivo a harmonização, entre as entidades públicas, dos prazos de conservação e destinos finais da documentação produzida no âmbito dos processos de negócio. Para operacionalizar a utilização da Lista Consolidada, a DGLAB, enquadrada pela Medida 51 do Programa de simplificação administrativa Simplex +, intitulada “Arquivo digital”, procedeu, no âmbito do Aviso SAMA n.o 02/SAMA2020/2016, ao desenvolvimento do Projeto “M51-CLAV - Arquivo digital: Plataforma modular de classificação e avaliação da informação pública” (CLAV). Para o efeito, obteve a colaboração da Universidade do Minho para os trabalhos da componente tecnológica e da empresa Morais Leitão, Galvão Teles, Soares da Silva & Associados (MLGTS), para a elaboração da proposta de Regime jurídico da classificação e avaliação da informação arquivística (RJCAIA), de suporte à utilização da Plataforma CLAV e às mudanças de procedimentos de gestão da informação a operar na AP. A Plataforma CLAV disponibiliza um conjunto de produtos e serviços orientados para a Administração Pública, as empresas e o cidadão, de que destacamos os seguintes:  Uma ontologia com os processos de negócio das entidades que exercem funções públicas (Lista Consolidada, LC), associada a um catálogo da legislação que os regula e dos organismos que os executam e que são responsáveis pela preservação da informação produzida nesse contexto e pela gestão do seu ciclo de vida.  Tabelas de seleção, derivadas da LC, com identificação das classes e do ciclo de vida da informação associada aos processos de negócios (prazos de conservação administrativa e destino final) para implementação em contexto organizacional ou pluriorganizacional.",
         "authors": [
-            "Moura, Elionai",
-            "Cunha, José António",
-            "Analide, Cesar"
+            "Lourenço, Alexandra",
+            "Gago, Maria Rita",
+            "Penteado, Pedro"
         ],
         "document_link": "N/A"
     },
     {
-        "title": "Prototyping teams of affective agents in robocode",
-        "year": "2015",
+        "title": "SPARQLing Neo4J",
+        "year": "2020-09-16",
+        "doi": "10.4230/OASIcs.SLATE.2020.17",
+        "abstract": "The growth experienced by the internet in the past few years as lead to an increased amount of available data and knowledge obtained from said data. However most of this knowledge is lost due to the lack of associated semantics making the task of interpreting data very hard to computers. To counter this, ontologies provide a extremely solid way to represent data and automatically derive knowledge from it. In this article we’ll present the work being developed with the aim to store and explore ontologies in Neo4J. In order to achieve this a web frontend was developed, integrating a SPARQL to CYPHER translator to allow users to query stored ontologies using SPARQL. This translator and its code generation is the main subject of this paper.",
+        "authors": [
+            "Moreira, Ezequiel",
+            "Ramalho, José Carlos"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Open web ontobud: An open source RDF4J frontend",
+        "year": "2020-09-16",
+        "doi": "10.4230/OASIcs.SLATE.2020.15",
+        "abstract": "Nowadays, we deal with increasing volumes of data. A few years ago, data was isolated, which did not allow communication or sharing between datasets. We live in a world where everything is connected, and our data mimics this. Data model focus changed from a square structure like the relational model to a model centered on the relations. Knowledge graphs are the new paradigm to represent and manage this new kind of information structure. Along with this new paradigm, a new kind of database emerged to support the new needs, graph databases! Although there is an increasing interest in this field, only a few native solutions are available. Most of these are commercial, and the ones that are open source have poor interfaces, and for that, they are a little distant from end-users. In this article, we introduce Ontobud, and discuss its design and development. A Web application that intends to improve the interface for one of the most interesting frameworks in this area: RDF4J. RDF4J is a Java framework to deal with RDF triples storage and management. Open Web Ontobud is an open source RDF4J web frontend, created to reduce the gap between end users and the RDF4J backend. We have created a web interface that enables users with a basic knowledge of OWL and SPARQL to explore ontologies and extract information from them.",
+        "authors": [
+            "Oliveira, Francisco José Moreira",
+            "Ramalho, José Carlos"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Plataforma M51-CLAV: o que há de novo?",
+        "year": "2017-11-03",
         "doi": "N/A",
-        "abstract": "The study of the impact of emotion and affect in decision making processes involved in a working team stands for a multi-disciplinary issue (e.g. with insights from disciplines such as Psychology, Neuroscience, Philosophy and Computer Science). On the one hand, and in order to create such an environment we look at a team of affective agents to play into a battlefield, which present different emotional profiles (e.g. personality and mood). An emotional system, based on the OCC (Ortony, Clore and Collins) model, was proposed and implemented. As a way to integrate the personality of a robot with its emotions we used pleasure-arousal-dominance (PAD) model of mood. On the other hand, to attain cooperation, a voting mechanism and a decision-making process was implemented, being Robocode used as the simulation environment. Indeed, the results so far obtained are quite satisfying; the agent team performs quite well in the battlefield and undertakes different behaviours depending on the skirmish conditions",
+        "abstract": "A presente comunicação tem como objetivo a apresentação do “Projeto M51-CLAV – Arquivo digital: Plataforma modular de classificação e avaliação da informação pública”, desenvolvido pela Direção-Geral do Livro, dos Arquivos e das Bibliotecas (DGLAB), em parceria com a Universidade do Minho, no âmbito do Aviso N.º 02/SAMA2020/2016, para dar cumprimento à Medida 51 do Simplex + “Arquivo digital” (cf. https://www.simplex.gov.pt/). Pretende-se apresentar os primeiros resultados, principalmente os relativos às duas etapas iniciais: Levantamento de requisitos de requisitos funcionais e não funcionais e Modelação e análise de informação.",
         "authors": [
-            "Rebelo, António",
-            "Catalão, Fábio",
-            "Alves, João",
-            "Marreiros, Goreti",
-            "Analide, Cesar",
-            "Novais, Paulo",
-            "Neves, José"
+            "Lourenço, Alexandra",
+            "Ramalho, José Carlos",
+            "Gago, Maria Rita",
+            "Penteado, Pedro"
         ],
         "document_link": "N/A"
     },
     {
-        "title": "Parallel evolutionary computation in bioinformatics applications",
-        "year": "2013-05",
-        "doi": "10.1016/j.cmpb.2012.10.001",
-        "abstract": "A large number of optimization problems within the field of Bioinformatics require methods able to handle its inherent complexity (e.g. NP-hard problems) and also demand increased computational efforts. In this context, the use of parallel architectures is a necessity. In this work, we propose ParJECoLi, a Java based library that offers a large set of metaheuristic methods (such as Evolutionary Algorithms) and also addresses the issue of its efficient execution on a wide range of parallel architectures. The proposed approach focuses on the easiness of use, making the adaptation to distinct parallel environments (multicore, cluster, grid) transparent to the user. Indeed, this work shows how the development of the optimization library can proceed independently of its adaptation for several architectures, making use of Aspect-Oriented Programming. The pluggable nature of parallelism related modules allows the user to easily configure its environment, adding parallelism modules to the base source code when needed. The performance of the platform is validated with two case studies within biological model optimization.",
+        "title": "Get your spreadsheets under (version) control",
+        "year": "2019",
+        "doi": "N/A",
+        "abstract": "Spreadsheets play a pivotal role in many organizations. They serve to store and manipulate data or forecasting, and they are often used to help in the decision process, thus directly impacting the success, or not, of organizations. As the research community already realized, spreadsheets tend to have the same problems “professional” software contain. Thus, in the past decade many software engineering techniques have been successfully proposed to aid spreadsheet developers and users. However, one of the most used mechanisms to manage software projects is still lacking in spreadsheets: a version control system. A version control system allows for collaborative development, while also allowing individual developers to explore different alternatives without compromising the main project. In this paper we present a version control system, named SheetGit, oriented for end-user programmers. It allows to graphically visualize the history of versions (including branches), to switch between different versions just by pointing and clicking, and to visualize the differences between any two versions in an animated way. To validate our approach/tool we performed an empirical evaluation which shows evidence that SheetGit can aid users when compared to other tools.",
         "authors": [
-            "Pinho, Jorge",
-            "Sobral, João Luís Ferreira",
-            "Rocha, Miguel"
+            "Macedo, José Nuno",
+            "Moreira, Ricardo",
+            "Cunha, Jácome",
+            "Saraiva, João"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Contributos para promover a adequação de uma abordagem baseada em serviços para o RSE",
+        "year": "2014",
+        "doi": "10.1109/CISTI.2014.6876956",
+        "abstract": "There are many issues to consider when we develop an information system for managing the electronic health record (EHR). It must be useful for several types of users, entities and departments of health services. Also, it must be flexible to meet a broad set of needs and cover a wide range of clinical and non-clinical areas in health. In this paper we describe a regional healthcare system, having in mind to illustrate a distributed, heterogeneous healthcare system, and then to discuss the suitability of the Triple Helix model for governance in a service-oriented architecture context, following the OpenEHR.",
+        "authors": [
+            "Gomes, Luis Mendes",
+            "Guerra, Helia",
+            "Bem, Nuno",
+            "Andrade, Carmen"
         ],
         "document_link": "N/A"
     }

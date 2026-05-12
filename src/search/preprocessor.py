@@ -1,20 +1,21 @@
 """
-preprocessor.py — Text preprocessing pipeline for the IR search engine.
+2. Text Processing & Natural Language Processing
+ 
+2.1 NLTK Implementation
+- **REQ-B13**: Integrate NLTK for text preprocessing
+- **REQ-B14**: Implement text tokenization and sentence segmentation
+- **REQ-B15**: Handle multiple languages (Portuguese/English)
 
-Supports:
-    - Tokenisation and sentence segmentation
-    - Stop word removal (Portuguese + English, configurable)
-    - Stemming  (Porter algorithm via NLTK)
-    - Lemmatisation (WordNet via NLTK)
-    - Multi-language support (Portuguese / English)
+### 2.2 Stemming and Lemmatization
+- **REQ-B16**: Implement stemming algorithms (Porter Stemmer recommended)
+- **REQ-B17**: Implement lemmatization using NLTK WordNet
+- **REQ-B18**: Allow system configuration to choose between stems/lemmas
+- **REQ-B19**: Compare performance between stemming vs lemmatization strategies
 
-Quick start
------------
-    from preprocessor import Preprocessor
-
-    pp = Preprocessor(language="english", use_stemming=True, remove_stopwords=True)
-    tokens = pp.process("Information retrieval systems are fascinating.")
-    # → ['inform', 'retriev', 'system', 'fascin']
+### 2.3 Stop Words Processing
+- **REQ-B20**: Implement configurable stop words filtering
+- **REQ-B21**: Allow inclusion/exclusion of stop words in term dictionary
+- **REQ-B22**: Support Portuguese and English stop word lists
 """
 
 import logging

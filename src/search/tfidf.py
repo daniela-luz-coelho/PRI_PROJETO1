@@ -1,21 +1,12 @@
 """
 tfidf.py — TF-IDF and cosine similarity for the IR search engine.
 
-Supports:
-    - Custom TF-IDF implementation (from scratch)
-    - Sklearn TF-IDF integration for comparison
-    - Cosine similarity ranking
-    - Configurable TF weighting (raw, log, boolean)
-
-Quick start
------------
-    from src.search.tfidf import TFIDFEngine
-    from src.search.preprocessor import make_stemming_preprocessor
-
-    pp = make_stemming_preprocessor("english")
-    engine = TFIDFEngine(pp)
-    engine.build_from_documents(documents)
-    results = engine.search("information retrieval", top_k=10)
+### 3.3 TF-IDF Implementation
+- **REQ-B32**: Calculate Term Frequency (TF) scores
+- **REQ-B33**: Calculate Inverse Document Frequency (IDF) scores
+- **REQ-B34**: Implement custom TF-IDF calculation function
+- **REQ-B35**: Integrate sklearn TF-IDF for comparison
+- **REQ-B36**: Allow user selection between custom and sklearn implementations
 """
 
 import logging
@@ -40,6 +31,14 @@ class TFIDFResult:
     doc_id: int
     document: dict
     score: float
+
+
+@dataclass
+class SimilarityResult:
+    """A single entry in a document similarity result."""
+    doc_id: int
+    document: dict
+    similarity: float
 
 
 class TFIDFEngine:
@@ -221,6 +220,120 @@ class TFIDFEngine:
                 doc_id = self._sklearn_doc_ids[idx]
                 results.append(TFIDFResult(doc_id=doc_id, document=self._documents[doc_id], score=round(float(score), 6)))
         results.sort(key=lambda r: r.score, reverse=True)
+        return results[:top_k]
+
+    # ------------------------------------------------------------------
+    # Document similarity matrix  (REQ-B40)
+    # ------------------------------------------------------------------
+
+    def similarity_matrix(self) -> tuple[np.ndarray, list[int]]:
+        """
+        Compute an N×N cosine similarity matrix for all indexed documents.
+
+        Each cell [i][j] contains the cosine similarity between document i
+        and document j, based on their TF-IDF vectors.  The diagonal is
+        always 1.0 (a document is identical to itself).
+
+        Works with both the custom and sklearn backends:
+        - Custom: uses the stored ``_doc_vectors`` sparse dicts.
+        - Sklearn: delegates to ``sklearn_cosine`` on the fitted matrix.
+
+        Returns
+        -------
+        matrix : np.ndarray of shape (N, N)
+            Pairwise cosine similarity scores in [0, 1].
+        doc_ids : list[int]
+            Ordered list of document IDs corresponding to each row/column.
+
+        Example
+        -------
+            engine = TFIDFEngine(pp)
+            engine.build_from_documents(documents)
+            matrix, doc_ids = engine.similarity_matrix()
+            # similarity between doc 0 and doc 1:
+            print(matrix[0][1])
+        """
+        if not self._documents:
+            return np.empty((0, 0)), []
+
+        if self.use_sklearn and self._sklearn_matrix is not None:
+            doc_ids = list(self._sklearn_doc_ids)
+            matrix = sklearn_cosine(self._sklearn_matrix, self._sklearn_matrix)
+            return matrix.astype(float), doc_ids
+
+        # Custom backend — build from sparse dict vectors
+        doc_ids = sorted(self._doc_vectors.keys())
+        n = len(doc_ids)
+        matrix = np.zeros((n, n), dtype=float)
+
+        for i, id_i in enumerate(doc_ids):
+            matrix[i][i] = 1.0
+            for j in range(i + 1, n):
+                id_j = doc_ids[j]
+                sim = self._cosine_similarity(self._doc_vectors[id_i], self._doc_vectors[id_j])
+                matrix[i][j] = sim
+                matrix[j][i] = sim
+
+        logger.info("Similarity matrix computed: %dx%d", n, n)
+        return matrix, doc_ids
+
+    def similar_to(self, doc_id: int, top_k: int = 10) -> list:
+        """
+        Return the top-K most similar documents to a given document.
+
+        Parameters
+        ----------
+        doc_id : int
+            The reference document ID.
+        top_k : int
+            Number of similar documents to return (excluding the document itself).
+
+        Returns
+        -------
+        List of SimilarityResult sorted by similarity descending.
+
+        Example
+        -------
+            results = engine.similar_to(doc_id=0, top_k=5)
+            for r in results:
+                print(r.similarity, r.document["title"])
+        """
+        if doc_id not in self._documents:
+            return []
+
+        if self.use_sklearn and self._sklearn_matrix is not None:
+            try:
+                idx = self._sklearn_doc_ids.index(doc_id)
+            except ValueError:
+                return []
+            query_vec = self._sklearn_matrix[idx]
+            scores = sklearn_cosine(query_vec, self._sklearn_matrix).flatten()
+            results = []
+            for i, score in enumerate(scores):
+                other_id = self._sklearn_doc_ids[i]
+                if other_id != doc_id and score > 0:
+                    results.append(SimilarityResult(
+                        doc_id=other_id,
+                        document=self._documents[other_id],
+                        similarity=round(float(score), 6),
+                    ))
+        else:
+            if doc_id not in self._doc_vectors:
+                return []
+            ref_vector = self._doc_vectors[doc_id]
+            results = []
+            for other_id, other_vector in self._doc_vectors.items():
+                if other_id == doc_id:
+                    continue
+                sim = self._cosine_similarity(ref_vector, other_vector)
+                if sim > 0:
+                    results.append(SimilarityResult(
+                        doc_id=other_id,
+                        document=self._documents[other_id],
+                        similarity=round(sim, 6),
+                    ))
+
+        results.sort(key=lambda r: r.similarity, reverse=True)
         return results[:top_k]
 
     # ------------------------------------------------------------------

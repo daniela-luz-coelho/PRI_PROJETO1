@@ -247,12 +247,18 @@ class BooleanSearchEngine:
         return left
 
     def _parse_and(self) -> set[int]:
-        left = self._parse_not()
+        operands = [self._parse_not()]
         while self._current().type == _AND:
             self._pos += 1
-            right = self._parse_not()
-            left = left & right
-        return left
+            operands.append(self._parse_not())
+        
+        operands.sort(key=len)  # Sort by size for efficient intersection
+        result = operands[0]
+        for op in operands[1:]:
+            result = result & op
+            if not result:
+                break  # Early exit if intersection is empty
+        return result
 
     def _parse_not(self) -> set[int]:
         if self._current().type == _NOT:
