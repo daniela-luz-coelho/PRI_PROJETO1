@@ -1,0 +1,591 @@
+\documentclass[12pt,a4paper]{article}
+
+% ---------------------------------------------------------
+% Pacotes
+% ---------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{microtype}
+
+% ---------------------------------------------------------
+% Cores e estilo de código
+% ---------------------------------------------------------
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codeblue}{rgb}{0.13,0.29,0.53}
+\definecolor{codegreen}{rgb}{0.0,0.5,0.0}
+\definecolor{codepurple}{rgb}{0.55,0.0,0.55}
+\definecolor{codered}{rgb}{0.6,0.0,0.0}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{codeblue}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codered},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{lightgray},
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    language=Python,
+    morekeywords={dataclass, Optional, Literal, list, dict, set, tuple},
+}
+
+\lstset{style=pythonstyle}
+
+% ---------------------------------------------------------
+% Cabeçalho e rodapé
+% ---------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{PRI --- Projeto 1}
+\lhead{Motor de Pesquisa sobre o Repositorium}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ---------------------------------------------------------
+% Formatação de títulos de secções
+% ---------------------------------------------------------
+\titleformat{\section}{\large\bfseries}{}{0em}{\thesection\quad}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{\thesubsection\quad}
+
+% ---------------------------------------------------------
+% Metadados do documento
+% ---------------------------------------------------------
+\title{
+    \vspace{-1cm}
+    {\large Universidade do Minho}\\[0.3cm]
+    {\large Mestrado em Engenharia Informática}\\[0.3cm]
+    \rule{\linewidth}{0.4pt}\\[0.5cm]
+    {\LARGE \textbf{Processamento e Recuperação de Informação}}\\[0.3cm]
+    {\Large Projeto 1 --- Motor de Pesquisa sobre o Repositorium}\\[0.3cm]
+    \rule{\linewidth}{0.4pt}
+}
+\author{
+    Daniela Rodrigues \and Rodrigo [Apelido]\\[0.2cm]
+    \small Universidade do Minho
+}
+\date{Maio de 2026}
+
+% ==========================================================
+\begin{document}
+% ==========================================================
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+% ==========================================================
+\section{Introdução}
+% ==========================================================
+
+Este relatório descreve o desenvolvimento de um motor de pesquisa de informação (IR) aplicado ao \textbf{Repositorium}, o repositório institucional da Universidade do Minho. O projeto foi desenvolvido no âmbito da unidade curricular de Processamento e Recuperação de Informação (PRI) e tem como objetivo construir, de raiz, um sistema capaz de indexar, pré-processar e pesquisar publicações científicas.
+
+O sistema é composto por vários módulos interligados:
+\begin{itemize}
+    \item um \textbf{scraper} baseado em Selenium para recolha automática de metadados;
+    \item uma \textbf{base de dados SQLite} para persistência dos documentos e do índice;
+    \item um \textbf{pipeline de pré-processamento NLP} com suporte a stemming e lematização;
+    \item um \textbf{índice invertido} com skip pointers para pesquisa booleana eficiente;
+    \item um \textbf{motor TF-IDF} com implementações própria e via scikit-learn;
+    \item um \textbf{classificador Naïve Bayes} para categorização automática de documentos;
+    \item uma \textbf{API REST} desenvolvida em FastAPI com frontend HTML.
+\end{itemize}
+
+A escolha do Repositorium prende-se com a sua relevância no contexto académico português e com a disponibilidade pública dos seus metadados, o que facilita a avaliação da qualidade dos resultados de pesquisa.
+
+% ==========================================================
+\section{Recolha de Dados --- Scraper}
+% ==========================================================
+
+\subsection{Motivação e abordagem}
+
+O Repositorium é uma aplicação Angular (DSpace 8), o que significa que o conteúdo é renderizado dinamicamente pelo browser --- uma simples chamada HTTP não devolve o HTML útil. Para contornar esta limitação, optámos por usar o \textbf{Selenium WebDriver} com o Chrome em modo \emph{headless}, que permite aguardar pela renderização do Angular antes de extrair os elementos.
+
+\subsection{Arquitetura do scraper}
+
+A classe principal \texttt{UMinhoDSpace8Scraper} encapsula toda a lógica de navegação. O processo decorre em três fases:
+
+\begin{enumerate}
+    \item \textbf{Descoberta de links}: a função \texttt{collect\_all\_links()} percorre a paginação da coleção, extraindo os URLs de cada publicação até atingir o limite configurado (\texttt{MAX\_ITEMS}).
+    \item \textbf{Extração de metadados}: para cada URL, a função \texttt{get\_paper\_info()} navega até à página \texttt{/full} do item e lê a tabela de metadados Dublin Core (\texttt{dc.title}, \texttt{dc.date.issued}, \texttt{dc.contributor.author}, etc.).
+    \item \textbf{Persistência}: os resultados são guardados em \texttt{scraper\_results.json}.
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{Campos extraídos pelo scraper para cada publicação}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Campo Dublin Core} & \textbf{Chave JSON} & \textbf{Descrição} \\
+\midrule
+\texttt{dc.title}               & \texttt{title}         & Título da publicação \\
+\texttt{dc.date.issued}         & \texttt{year}          & Ano de publicação \\
+\texttt{dc.identifier.doi}      & \texttt{doi}           & Identificador DOI \\
+\texttt{dc.contributor.author}  & \texttt{authors}       & Lista de autores \\
+\texttt{dc.description.abstract}& \texttt{abstract}      & Resumo \\
+---                             & \texttt{document\_link}& Link para o PDF \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Configuração de ambiente}
+
+O scraper inclui uma função \texttt{find\_chrome\_executable()} que deteta automaticamente a instalação do Chrome em Windows, Linux e macOS, eliminando a necessidade de configuração manual. Caso o Chrome não esteja instalado, é lançada uma exceção clara com instruções.
+
+% ==========================================================
+\section{Armazenamento --- Base de Dados SQLite}
+% ==========================================================
+
+\subsection{Schema relacional}
+
+A base de dados foi desenhada para suportar os requisitos de armazenamento do projeto, seguindo um modelo relacional normalizado. O schema inclui as seguintes tabelas principais:
+
+\begin{itemize}
+    \item \textbf{\texttt{documents}}: armazena o documento com o seu conteúdo bruto (\texttt{raw\_content}) e o texto pré-processado serializado em JSON (\texttt{processed\_text}).
+    \item \textbf{\texttt{authors}}: tabela normalizada de autores, com índice único no nome completo para evitar duplicados.
+    \item \textbf{\texttt{document\_authors}}: tabela de junção N:N entre documentos e autores, com campo de posição para preservar a ordem dos autores.
+    \item \textbf{\texttt{document\_metadata}}: pares chave/valor flexíveis para metadados adicionais (sujeito, tipo de documento, etc.).
+    \item \textbf{\texttt{document\_versions}}: histórico de versões do conteúdo de cada documento.
+    \item \textbf{\texttt{index\_terms}} e \textbf{\texttt{index\_postings}}: representação persistente do índice invertido.
+\end{itemize}
+
+\subsection{Classe DocumentStore}
+
+A classe \texttt{DocumentStore} centraliza todas as operações de leitura e escrita. Utiliza um \emph{context manager} para gestão de conexões e suporta transações explícitas. As operações mais relevantes são:
+
+\begin{itemize}
+    \item \texttt{save\_documents(docs, processed\_texts)}: insere documentos em lote, resolve autores por upsert e persiste metadados.
+    \item \texttt{save\_inverted\_index(index)}: serializa o índice invertido na base de dados.
+    \item \texttt{get\_stats()}: devolve contagens por tabela para diagnóstico.
+\end{itemize}
+
+% ==========================================================
+\section{Pré-processamento de Texto}
+% ==========================================================
+
+\subsection{Pipeline NLP}
+
+O módulo \texttt{preprocessor.py} implementa um pipeline de pré-processamento configurável, construído sobre o NLTK. A classe \texttt{Preprocessor} aceita uma instância de \texttt{PreprocessorConfig} que controla cada etapa individualmente.
+
+O pipeline executa as seguintes etapas, por esta ordem:
+
+\begin{enumerate}
+    \item \textbf{Tokenização}: usando \texttt{word\_tokenize} do NLTK, com suporte a inglês e português.
+    \item \textbf{Normalização de caixa}: conversão para minúsculas.
+    \item \textbf{Remoção de pontuação}: filtro de tokens sem caracteres alfanuméricos.
+    \item \textbf{Remoção de stopwords}: usando os léxicos NLTK para inglês e português em simultâneo.
+    \item \textbf{Lematização}: usando \texttt{WordNetLemmatizer} com etiquetagem POS (para inglês); para português, lematização simples como nomes.
+    \item \textbf{Stemming}: Porter Stemmer (inglês) ou Snowball Stemmer (português).
+    \item \textbf{Filtro de comprimento mínimo}: remoção de tokens com menos de 2 caracteres.
+\end{enumerate}
+
+\subsection{Configurações disponíveis}
+
+O sistema disponibiliza três \emph{factory functions} para os casos de uso mais comuns:
+
+\begin{lstlisting}[caption={Factory functions para configurações pré-definidas}]
+def make_stemming_preprocessor(language="english") -> Preprocessor:
+    # Stemming sem lematizacao (mais rapido, menor vocabulario)
+    return Preprocessor(PreprocessorConfig(
+        use_stemming=True, use_lemmatisation=False, remove_stopwords=True
+    ))
+
+def make_lemmatisation_preprocessor(language="english") -> Preprocessor:
+    # Lematizacao sem stemming (mais precisa, vocabulario maior)
+    return Preprocessor(PreprocessorConfig(
+        use_stemming=False, use_lemmatisation=True, remove_stopwords=True
+    ))
+
+def make_bare_preprocessor(language="english") -> Preprocessor:
+    # Apenas tokenizacao e lowercase, sem filtragem
+    return Preprocessor(PreprocessorConfig(
+        use_stemming=False, use_lemmatisation=False, remove_stopwords=False
+    ))
+\end{lstlisting}
+
+\subsection{Comparação stemming vs.\ lematização}
+
+A principal diferença entre as duas abordagens está na forma como os termos são reduzidos à sua forma base:
+
+\begin{table}[H]
+\centering
+\caption{Comparação entre stemming e lematização}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Aspeto}       & \textbf{Stemming}          & \textbf{Lematização} \\
+\midrule
+Velocidade           & Rápido                     & Mais lento (requer POS) \\
+Vocabulário          & Menor                      & Maior \\
+Qualidade dos termos & Radicais (podem não existir) & Formas válidas \\
+Exemplo: ``running'' & \texttt{run}               & \texttt{run} \\
+Exemplo: ``better''  & \texttt{better}            & \texttt{good} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ==========================================================
+\section{Índice Invertido}
+% ==========================================================
+
+\subsection{Estrutura de dados}
+
+O índice invertido é implementado no módulo \texttt{inverted\_index.py} e assenta em duas estruturas principais:
+
+\begin{itemize}
+    \item \textbf{\texttt{Posting}}: regista, para um par (termo, documento), a frequência do termo (\texttt{tf}) e as posições de ocorrência no texto (lista de inteiros). As posições são usadas em pesquisas de proximidade.
+    \item \textbf{\texttt{PostingsList}}: agrega todos os postings de um termo, a sua frequência de documento (\texttt{df}) e um dicionário de skip pointers.
+\end{itemize}
+
+\subsection{Skip pointers}
+
+Para acelerar a interseção de listas de postings em queries AND, implementámos skip pointers. O intervalo de salto é calculado como $\lfloor\sqrt{n}\rfloor$, onde $n$ é o comprimento da lista:
+
+\begin{lstlisting}[caption={Cálculo dos skip pointers}]
+def build_skip_pointers(self) -> None:
+    n = len(self.postings)
+    if n < 3:
+        self.skips = {}
+        return
+    skip_interval = max(1, int(math.sqrt(n)))
+    self.skips = {}
+    for i in range(0, n - skip_interval, skip_interval):
+        self.skips[i] = i + skip_interval
+\end{lstlisting}
+
+O algoritmo de interseção com skip pointers evita comparações desnecessárias ao saltar blocos de elementos quando o doc\_id atual é menor do que o alvo:
+
+\begin{equation}
+    \text{skip\_interval} = \max\!\left(1,\ \left\lfloor\sqrt{n}\right\rfloor\right)
+\end{equation}
+
+No pior caso este algoritmo tem complexidade $O(n)$; com skip pointers, na prática aproxima-se de $O(\sqrt{n})$ em listas uniformemente distribuídas.
+
+\subsection{Suporte a atualizações incrementais}
+
+A função \texttt{add\_document()} permite indexar um documento sem reconstruir o índice completo, e atualiza os skip pointers apenas nas listas de postings afetadas.
+
+% ==========================================================
+\section{TF-IDF e Similaridade}
+% ==========================================================
+
+\subsection{Modelo de pesquisa vetorial}
+
+O módulo \texttt{tfidf.py} implementa um motor de pesquisa baseado no modelo vetorial. Cada documento e cada query são representados como vetores no espaço dos termos, ponderados por TF-IDF. A relevância é medida pela similaridade de cosseno entre os vetores.
+
+\subsection{Cálculo TF-IDF}
+
+O sistema suporta três esquemas de TF:
+
+\begin{table}[H]
+\centering
+\caption{Esquemas de TF suportados}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Esquema} & \textbf{Fórmula} & \textbf{Quando usar} \\
+\midrule
+\texttt{raw}     & $\mathrm{tf}(t,d)$ & Coleções pequenas e uniformes \\
+\texttt{log}     & $1 + \log(\mathrm{tf}(t,d))$ & Uso geral (padrão) \\
+\texttt{boolean} & $1$ se $\mathrm{tf}>0$, senão $0$ & Pesquisa booleana simples \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O IDF é calculado com suavização para evitar divisão por zero:
+
+\begin{equation}
+    \mathrm{idf}(t) = \log\!\left(\frac{N+1}{\mathrm{df}(t)+1}\right) + 1
+\end{equation}
+
+onde $N$ é o número total de documentos e $\mathrm{df}(t)$ é o número de documentos que contêm o termo $t$.
+
+A similaridade de cosseno entre dois vetores $\mathbf{v}_1$ e $\mathbf{v}_2$ é:
+
+\begin{equation}
+    \cos(\mathbf{v}_1, \mathbf{v}_2) = \frac{\mathbf{v}_1 \cdot \mathbf{v}_2}{\|\mathbf{v}_1\| \cdot \|\mathbf{v}_2\|}
+\end{equation}
+
+\subsection{Dois backends}
+
+O \texttt{TFIDFEngine} suporta dois backends que produzem resultados comparáveis:
+
+\begin{itemize}
+    \item \textbf{Custom}: implementação própria com vetores esparsos em dicionários Python. Mais transparente e auditável.
+    \item \textbf{Sklearn}: usa \texttt{TfidfVectorizer} e matrizes \texttt{scipy.sparse}. Mais eficiente em coleções grandes.
+\end{itemize}
+
+Ambos os backends são construídos em \texttt{load} e podem ser alternados em tempo de execução via parâmetro da API.
+
+\subsection{Matriz de similaridade}
+
+O método \texttt{similarity\_matrix()} calcula a matriz $N \times N$ de similaridades par-a-par entre todos os documentos indexados. O método \texttt{similar\_to(doc\_id)} usa esta lógica para devolver os $K$ documentos mais próximos de um dado documento.
+
+% ==========================================================
+\section{Pesquisa Booleana}
+% ==========================================================
+
+\subsection{Sintaxe suportada}
+
+O módulo \texttt{boolean\_search.py} implementa um motor de pesquisa booleana completo. Suporta os operadores \texttt{AND}, \texttt{OR}, \texttt{NOT} com a precedência correta ($\text{NOT} > \text{AND} > \text{OR}$), agrupamento por parênteses, e \texttt{AND} implícito entre termos separados por espaço.
+
+Exemplos de queries válidas:
+\begin{itemize}
+    \item \texttt{"information retrieval"} → \texttt{information AND retrieval}
+    \item \texttt{"neural OR deep AND learning"} → \texttt{neural OR (deep AND learning)}
+    \item \texttt{"machine NOT learning"} → documentos com ``machine'' mas sem ``learning''
+    \item \texttt{"(neural OR deep) AND learning"} → agrupamento explícito
+\end{itemize}
+
+\subsection{Parser de queries}
+
+O módulo \texttt{query\_utils.py} implementa um parser de descida recursiva que constrói uma \textbf{Abstract Syntax Tree} (AST) da query. Os nós da AST (\texttt{QueryNode}) têm um operador (\texttt{AND}/\texttt{OR}/\texttt{NOT}/\texttt{TERM}) e filhos esquerdo/direito.
+
+A avaliação da AST percorre a árvore recursivamente, realizando as interseções, uniões e diferenças das listas de postings correspondentes.
+
+Adicionalmente, o módulo implementa \textbf{expansão de query} via WordNet: para cada termo da query, são adicionados sinónimos (configurável, máximo de 2 por defeito), alargando o recall da pesquisa.
+
+% ==========================================================
+\section{Classificação de Documentos --- Naïve Bayes}
+% ==========================================================
+
+\subsection{Abordagem}
+
+O módulo \texttt{classifier.py} implementa um classificador Multinomial Naïve Bayes para categorização automática de publicações em cinco áreas temáticas: \emph{Computer Science}, \emph{Health/Medicine}, \emph{Engineering}, \emph{Social Sciences} e \emph{Mathematics}.
+
+\subsection{Estratégia de treino semi-supervisionada}
+
+Como o dataset do Repositorium não vem com etiquetas de categoria, adotámos uma estratégia de \emph{bootstrapping}:
+
+\begin{enumerate}
+    \item \textbf{Atribuição de etiquetas iniciais}: um dicionário de palavras-chave por categoria (\texttt{CATEGORIES}) é usado para etiquetar automaticamente os documentos. Documentos que não acumulem matches suficientes ficam na categoria ``other''.
+    \item \textbf{Treino supervisionado}: o \texttt{MultinomialNB} do scikit-learn é treinado sobre as etiquetas geradas, usando \texttt{TfidfVectorizer} sobre os tokens pré-processados.
+    \item \textbf{Predição}: novos documentos são classificados pelo modelo treinado, com \emph{fallback} para as palavras-chave em caso de confiança baixa.
+\end{enumerate}
+
+\subsection{Avaliação}
+
+O classificador calcula as métricas standard de classificação: \emph{precision}, \emph{recall} e F1-score por categoria. Opcionalmente, realiza validação cruzada com 5 \emph{folds} (controlado pelo parâmetro \texttt{CLASSIFIER\_RUN\_CROSS\_VALIDATION} na configuração).
+
+\begin{table}[H]
+\centering
+\caption{Categorias e exemplos de palavras-chave associadas}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Categoria}    & \textbf{Exemplos de palavras-chave} \\
+\midrule
+computer\_science  & algorithm, machine learning, neural, database, nlp \\
+health\_medicine   & clinical, patient, cancer, genomics, epidemiology \\
+engineering        & mechanical, sensor, renewable, embedded, circuit \\
+social\_sciences   & education, policy, economics, psychology, ethics \\
+mathematics        & probability, algebra, differential, bayesian, theorem \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ==========================================================
+\section{API REST e Frontend}
+% ==========================================================
+
+\subsection{FastAPI}
+
+A API é implementada em \texttt{fastapi\_app.py} usando o framework \textbf{FastAPI}. Os endpoints principais são:
+
+\begin{table}[H]
+\centering
+\caption{Endpoints da API REST}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Método} & \textbf{Endpoint}       & \textbf{Descrição} \\
+\midrule
+GET  & \texttt{/search}            & Pesquisa TF-IDF; aceita \texttt{q}, \texttt{top\_k}, \texttt{backend} \\
+GET  & \texttt{/boolean}           & Pesquisa booleana com \texttt{AND}/\texttt{OR}/\texttt{NOT} \\
+GET  & \texttt{/stats}             & Estatísticas do índice \\
+GET  & \texttt{/documents/\{id\}}  & Metadados de um documento \\
+GET  & \texttt{/similar/\{id\}}    & Documentos mais similares \\
+GET  & \texttt{/classify}          & Classifica um documento dado o seu ID \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O engine é carregado uma vez no arranque da aplicação e mantido em memória. Um mecanismo de \emph{lazy reload} (\texttt{ensure\_loaded()}) permite recarregar os dados se o caminho do ficheiro de dados mudar --- útil em contexto de testes.
+
+\subsection{Frontend}
+
+O frontend é uma single-page application em HTML/CSS/JavaScript puro, servida pela própria API em \texttt{/ui}. Apresenta uma caixa de pesquisa, opções para escolher o backend (custom vs.\ sklearn) e o tipo de pesquisa (TF-IDF vs.\ booleana), e uma lista de resultados com \emph{snippets} do abstract.
+
+% ==========================================================
+\section{Avaliação de Desempenho}
+% ==========================================================
+
+O módulo \texttt{evaluation.py} implementa um framework de avaliação de desempenho para o sistema:
+
+\begin{itemize}
+    \item \textbf{Tempo de indexação}: mede o tempo de construção do índice invertido e do TF-IDF para stemming vs.\ lematização.
+    \item \textbf{Uso de memória}: usa \texttt{tracemalloc} para medir o pico de uso de memória durante a indexação.
+    \item \textbf{Tempo de resposta a queries}: mede a latência de cada pesquisa.
+    \item \textbf{Relevância dos resultados}: calcula Precision@K e MAP usando um conjunto de \emph{relevance judgements} (\emph{qrels}) definido manualmente.
+\end{itemize}
+
+As \emph{qrels} incluem queries de referência como ``information retrieval'', ``machine learning'' e ``deep learning'', com títulos de documentos relevantes definidos por substring match.
+
+% ==========================================================
+\section{Configuração Centralizada}
+% ==========================================================
+
+Todos os parâmetros configuráveis do sistema estão centralizados em \texttt{config.py}, num \emph{dataclass} \texttt{Settings} que age como \emph{singleton}. Os valores podem ser sobrescritos por variáveis de ambiente com o prefixo \texttt{IR\_}:
+
+\begin{lstlisting}[caption={Exemplo de override por variável de ambiente}]
+# Porta da API
+export IR_API_PORT=9000
+
+# Esquema TF
+export IR_TF_SCHEME=raw
+
+# Backend TF-IDF
+export IR_DEFAULT_TFIDF_BACKEND=sklearn
+\end{lstlisting}
+
+Esta abordagem permite configurar o sistema sem tocar no código, o que facilita o deployment em diferentes ambientes (desenvolvimento, testes, produção).
+
+% ==========================================================
+\section{Testes}
+% ==========================================================
+
+O projeto inclui uma suite de testes abrangente em \texttt{pytest}, com cobertura para todos os módulos principais:
+
+\begin{table}[H]
+\centering
+\caption{Ficheiros de teste e módulos cobertos}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Ficheiro de teste}       & \textbf{Módulo testado} \\
+\midrule
+\texttt{test\_preprocessor.py}   & Pipeline NLP \\
+\texttt{test\_index\_search.py}  & Índice invertido e pesquisa \\
+\texttt{test\_tfidf.py}          & Motor TF-IDF \\
+\texttt{test\_boolean\_search.py} & Pesquisa booleana \\  % via test_query_utils
+\texttt{test\_query\_utils.py}   & Parser e expansão de query \\
+\texttt{test\_classifier.py}     & Classificador Naïve Bayes \\
+\texttt{test\_database.py}       & Camada de persistência \\
+\texttt{test\_scraper.py}        & Scraper (com mocks) \\
+\texttt{test\_api.py}            & Endpoints FastAPI \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Os testes do scraper usam \emph{mocking} do WebDriver para não depender de uma ligação à internet, e os testes da API usam o \texttt{TestClient} do FastAPI com um dataset de teste reduzido.
+
+% ==========================================================
+\section{Estrutura do Repositório}
+% ==========================================================
+
+\begin{verbatim}
+PRI_PROJETO1/
+├── src/
+│   ├── config.py               # Configuração centralizada
+│   ├── scraper/
+│   │   ├── scraper.py          # Selenium scraper
+│   │   ├── main.py             # Entrypoint do scraper
+│   │   └── scraper_results.json
+│   ├── storage/
+│   │   ├── database.py         # Camada SQLite
+│   │   └── populate_db.py      # Script de população
+│   ├── search/
+│   │   ├── preprocessor.py     # Pipeline NLP
+│   │   ├── inverted_index.py   # Índice invertido
+│   │   ├── tfidf.py            # Motor TF-IDF
+│   │   ├── boolean_search.py   # Motor booleano
+│   │   ├── query_utils.py      # Parser e expansão
+│   │   ├── classifier.py       # Classificador NB
+│   │   ├── evaluation.py       # Avaliação
+│   │   └── nlp.py              # Utilitários NLP
+│   ├── api/
+│   │   └── fastapi_app.py      # API REST
+│   └── frontend/
+│       └── index.html          # Interface web
+├── data/
+│   └── repositorium.db         # Base de dados SQLite
+├── tests/                      # Suite de testes pytest
+├── requirements.txt
+└── conftest.py
+\end{verbatim}
+
+% ==========================================================
+\section{Conclusões}
+% ==========================================================
+
+O sistema desenvolvido cobre os requisitos do projeto de forma completa, implementando desde a recolha de dados até à interface de pesquisa. As principais contribuições são:
+
+\begin{itemize}
+    \item Um scraper robusto para o DSpace 8 com Angular, capaz de navegar paginação e extrair metadados estruturados.
+    \item Um pipeline NLP configurável com suporte a inglês e português, comparando stemming e lematização.
+    \item Um índice invertido com skip pointers que acelera as interseções de postings em queries booleanas complexas.
+    \item Um motor TF-IDF com dois backends (custom e sklearn) que podem ser comparados diretamente.
+    \item Um classificador automático baseado em Naïve Bayes com estratégia de bootstrapping para datasets sem anotação prévia.
+    \item Uma API REST bem estruturada com frontend integrado.
+\end{itemize}
+
+Como trabalho futuro, seria interessante explorar modelos de linguagem mais recentes (e.g., embeddings BERT) para melhorar a qualidade do ranking, bem como implementar técnicas de \emph{query expansion} mais sofisticadas baseadas em modelos de linguagem.
+
+% ==========================================================
+% Referências
+% ==========================================================
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{manning2008}
+Manning, C.D., Raghavan, P., \& Schütze, H. (2008).
+\textit{Introduction to Information Retrieval}.
+Cambridge University Press.
+\url{https://nlp.stanford.edu/IR-book/}
+
+\bibitem{nltk2009}
+Bird, S., Klein, E., \& Loper, E. (2009).
+\textit{Natural Language Processing with Python}.
+O'Reilly Media.
+
+\bibitem{sklearn}
+Pedregosa et al. (2011).
+Scikit-learn: Machine Learning in Python.
+\textit{Journal of Machine Learning Research}, 12, 2825--2830.
+
+\bibitem{fastapi}
+Ramírez, S. (2019).
+FastAPI. \url{https://fastapi.tiangolo.com/}
+
+\bibitem{repositorium}
+Universidade do Minho.
+Repositorium --- Repositório Institucional da Universidade do Minho.
+\url{https://repositorium.sdum.uminho.pt/}
+
+\bibitem{dspace}
+DSpace Community (2023).
+\textit{DSpace 8 Documentation}.
+\url{https://dspace-labs.github.io/DSpace/}
+
+\end{thebibliography}
+
+\end{document}
