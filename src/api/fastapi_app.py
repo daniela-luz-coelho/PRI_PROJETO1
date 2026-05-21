@@ -10,6 +10,9 @@ import re
 
 from src.search.tfidf import TFIDFEngine
 from src.search.preprocessor import make_stemming_preprocessor
+from src.search.inverted_index import InvertedIndex
+from src.search.boolean_search import BooleanSearchEngine
+from src.search.classifier import DocumentClassifier
 from src.config import Settings
 
 # -------------------------------------------------
@@ -34,7 +37,7 @@ if _FRONTEND.exists():
 
 documents = []
 
-# Dois engines: custom e sklearn
+# Dois engines TF-IDF: custom e sklearn
 _engine_custom = TFIDFEngine(
     preprocessor=make_stemming_preprocessor("english"),
     use_sklearn=False,
@@ -46,6 +49,17 @@ _engine_sklearn = TFIDFEngine(
 
 # Engine padrão (custom)
 engine = _engine_custom
+
+# Índice invertido + motor booleano (partilham o mesmo preprocessor)
+_inverted_index = InvertedIndex(
+    preprocessor=make_stemming_preprocessor("english"),
+)
+_boolean_engine = BooleanSearchEngine(_inverted_index)
+
+# Classificador Naïve Bayes
+_classifier = DocumentClassifier(
+    preprocessor=make_stemming_preprocessor("english"),
+)
 
 
 # -------------------------------------------------
@@ -62,6 +76,8 @@ def load_documents():
 
     _engine_custom.build_from_documents(documents)
     _engine_sklearn.build_from_documents(documents)
+    _inverted_index.build_from_documents(documents)
+    _classifier.train(documents)
 
 
 # Carrega ao arrancar; nos testes o fixture muda DATA_PATH e chama
@@ -151,67 +167,6 @@ def search(
     return {"query": q, "total": len(output), "results": output}
 
 
-# -------------------------------------------------
-# SEARCH BOOLEAN
-# -------------------------------------------------
-def _boolean_search(q: str) -> list:
-    """
-    Parseia expressões booleanas simples: AND, OR, NOT.
-    Suporta: "term", "A AND B", "A OR B", "A NOT B"
-    """
-    preprocessor = _engine_custom.preprocessor
-
-    def get_doc_ids(term: str) -> set:
-        """Devolve conjunto de doc_ids que contêm o termo."""
-        processed = preprocessor.process(term.strip())
-        if not processed:
-            return set()
-        token = processed[0]
-        matching = set()
-        for doc_id, doc in enumerate(documents):
-            fields_text = " ".join(
-                str(doc.get(f, "")) for f in ["title", "abstract"]
-            )
-            doc_tokens = preprocessor.process(fields_text)
-            if token in doc_tokens:
-                matching.add(doc_id)
-        return matching
-
-    q = q.strip()
-    all_ids = set(range(len(documents)))
-
-    # AND
-    if " AND " in q:
-        parts = q.split(" AND ", 1)
-        ids = get_doc_ids(parts[0]) & get_doc_ids(parts[1])
-    # NOT
-    elif " NOT " in q:
-        parts = q.split(" NOT ", 1)
-        ids = get_doc_ids(parts[0]) - get_doc_ids(parts[1])
-    # OR
-    elif " OR " in q:
-        parts = q.split(" OR ", 1)
-        ids = get_doc_ids(parts[0]) | get_doc_ids(parts[1])
-    # Termo simples
-    else:
-        ids = get_doc_ids(q)
-
-    results = []
-    for doc_id in sorted(ids):
-        doc = documents[doc_id]
-        results.append({
-            "doc_id": doc_id,
-            "title": doc.get("title"),
-            "abstract": doc.get("abstract"),
-            "authors": doc.get("authors", []),
-            "year": doc.get("year"),
-            "doi": doc.get("doi"),
-            "document_link": doc.get("document_link"),
-            "score": 1.0,
-        })
-    return results
-
-
 @app.get("/search/boolean", response_model=SearchResponse)
 def search_boolean(q: str = Query(...)):
     ensure_loaded()
@@ -219,8 +174,23 @@ def search_boolean(q: str = Query(...)):
     if not q or not q.strip():
         raise HTTPException(status_code=400, detail="Empty query")
 
-    results = _boolean_search(q)
-    return {"query": q, "total": len(results), "results": results}
+    results = _boolean_engine.search(q)
+
+    output = [
+        {
+            "doc_id": r.doc_id,
+            "title": r.document.get("title"),
+            "abstract": r.document.get("abstract"),
+            "authors": r.document.get("authors", []),
+            "year": r.document.get("year"),
+            "doi": r.document.get("doi"),
+            "document_link": r.document.get("document_link"),
+            "score": r.score,
+        }
+        for r in results
+    ]
+
+    return {"query": q, "total": len(output), "results": output}
 
 
 # -------------------------------------------------
@@ -266,6 +236,94 @@ def get_document(doc_id: int):
     doc = dict(documents[doc_id])   # cópia para não mutar o original
     doc["doc_id"] = doc_id          # campo exigido pelo teste
     return doc
+
+
+# -------------------------------------------------
+# SIMILAR DOCUMENTS
+# -------------------------------------------------
+@app.get("/similar/{doc_id}")
+def similar(doc_id: int, top_k: int = Query(default=5)):
+    """Devolve os top_k documentos mais similares ao documento dado (cosine TF-IDF)."""
+    ensure_loaded()
+
+    if _engine_custom.get_document(doc_id) is None:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    results = _engine_custom.similar_to(doc_id, top_k=top_k)
+
+    return {
+        "doc_id": doc_id,
+        "total": len(results),
+        "results": [
+            {
+                "doc_id": r.doc_id,
+                "title": r.document.get("title"),
+                "authors": r.document.get("authors", []),
+                "year": r.document.get("year"),
+                "similarity": r.similarity,
+            }
+            for r in results
+        ],
+    }
+
+
+# -------------------------------------------------
+# CLASSIFY DOCUMENT
+# -------------------------------------------------
+@app.get("/classify/{doc_id}")
+def classify_document(doc_id: int):
+    """Classifica um documento por área temática usando Naïve Bayes."""
+    ensure_loaded()
+
+    doc = _engine_custom.get_document(doc_id)
+    if doc is None:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    result = _classifier.classify_document(doc)
+
+    return {
+        "doc_id": doc_id,
+        "title": doc.get("title"),
+        "predicted_category": result.predicted_category,
+        "confidence": result.confidence,
+        "probabilities": result.probabilities,
+    }
+
+
+# -------------------------------------------------
+# EXPLAIN  — elementos educativos
+# -------------------------------------------------
+@app.get("/explain")
+def explain(q: str = Query(...)):
+    """
+    Devolve informação pedagógica sobre o processamento de uma query:
+    tokens após pré-processamento, IDF de cada termo, e top-5 postings.
+    """
+    ensure_loaded()
+
+    if not q or not q.strip():
+        raise HTTPException(status_code=400, detail="Empty query")
+
+    preprocessor = _engine_custom.preprocessor
+    tokens = preprocessor.process(q)
+
+    term_info = []
+    for token in dict.fromkeys(tokens):   # unique, preserving order
+        idf = _engine_custom.get_term_idf(token)
+        postings = _inverted_index.get_postings(token)
+        term_info.append({
+            "original_term": token,
+            "idf": round(idf, 4),
+            "doc_frequency": len(postings),
+            "sample_doc_ids": [p.doc_id for p in postings[:5]],
+        })
+
+    return {
+        "query": q,
+        "tokens": tokens,
+        "term_details": term_info,
+        "total_documents": len(documents),
+    }
 
 
 # -------------------------------------------------

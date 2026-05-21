@@ -520,8 +520,8 @@
       </div>
       <div class="tfidf-demo" id="tfidfLiveDemo">
         <div class="tfidf-card"><div class="label">Termo exemplo</div><div class="value" id="demoTerm">—</div><div class="desc">da tua query</div></div>
-        <div class="tfidf-card"><div class="label">TF (estimado)</div><div class="value" id="demoTF">—</div><div class="desc">freq. no doc / total termos</div></div>
-        <div class="tfidf-card"><div class="label">IDF (estimado)</div><div class="value" id="demoIDF">—</div><div class="desc">log(N / df) + 1</div></div>
+        <div class="tfidf-card"><div class="label">TF (por doc)</div><div class="value" id="demoTF">—</div><div class="desc">freq. no doc / total termos</div></div>
+        <div class="tfidf-card"><div class="label">IDF (real)</div><div class="value" id="demoIDF">—</div><div class="desc">log(N / df) + 1</div></div>
         <div class="tfidf-card"><div class="label">TF-IDF</div><div class="value" id="demoScore">—</div><div class="desc">produto dos dois</div></div>
       </div>
       <p style="font-size:.78rem;color:var(--muted)">💡 Pesquisa com o <strong>TF-IDF Personalizado</strong> usa a nossa implementação em Python puro; a opção <strong>sklearn</strong> usa a biblioteca scikit-learn — podes comparar resultados no botão ⚖️ Comparar.</p>
@@ -557,6 +557,9 @@
         → lematização:  ["run","neural","network","efficiently"]
       </div>
       <p><strong>Stemming (Porter)</strong> corta sufixos de forma agressiva e rápida — "studies" → "studi". <strong>Lematização (WordNet)</strong> é mais lenta mas produz raízes reais — "studies" → "study". Podes escolher o modo no painel de opções.</p>
+      <div id="nlpTokensLive" style="margin-top:.75rem;padding:.75rem;background:var(--accent-light);border-radius:var(--radius);font-size:.82rem;min-height:2rem;">
+        <span style="color:var(--muted)">Faz uma pesquisa para ver o pipeline aplicado à tua query.</span>
+      </div>
     </div>
   </div>
 
@@ -800,19 +803,61 @@
     }
   }
 
-  // ── TFIDF LIVE DEMO ──
-  function updateTFIDFDemo(query) {
-    const terms = query.toLowerCase().replace(/[^\w\s]/g,'').split(/\s+/).filter(t => t && !['and','or','not'].includes(t));
-    if (!terms.length) return;
-    const term = terms[0];
-    // Simulate plausible values for demo
-    const tf   = (Math.random() * 0.08 + 0.02).toFixed(4);
-    const idf  = (Math.log(100 / (Math.floor(Math.random() * 20) + 2)) + 1).toFixed(4);
-    const tfidf = (parseFloat(tf) * parseFloat(idf)).toFixed(4);
-    document.getElementById('demoTerm').textContent  = term;
-    document.getElementById('demoTF').textContent    = tf;
-    document.getElementById('demoIDF').textContent   = idf;
-    document.getElementById('demoScore').textContent = tfidf;
+  // ── TFIDF LIVE DEMO (dados reais via /explain) ──
+  async function updateTFIDFDemo(query) {
+    try {
+      const resp = await fetch(`${API}/explain?q=${encodeURIComponent(query)}`);
+      if (!resp.ok) return;
+      const data = await resp.json();
+
+      // --- aba TF-IDF: mostrar o 1.º termo com maior IDF ---
+      const terms = data.term_details || [];
+      if (terms.length > 0) {
+        const best = terms.reduce((a, b) => b.idf > a.idf ? b : a, terms[0]);
+        document.getElementById('demoTerm').textContent  = best.original_term;
+        document.getElementById('demoTF').textContent    = '—';
+        document.getElementById('demoIDF').textContent   = best.idf;
+        document.getElementById('demoScore').textContent = '—';
+
+        // Actualizar labels
+        const tfCard  = document.getElementById('demoTF').previousElementSibling;
+        const idfCard = document.getElementById('demoIDF').previousElementSibling;
+        if (tfCard)  tfCard.textContent  = 'TF (por doc)';
+        if (idfCard) idfCard.textContent = 'IDF (real)';
+      }
+
+      // --- aba Pré-processamento: mostrar pipeline real ---
+      const tokensEl = document.getElementById('nlpTokensLive');
+      if (tokensEl) {
+        const pills = data.tokens.map(t =>
+          `<span class="posting-pill" style="background:var(--accent-light);color:var(--primary-dark)">${t}</span>`
+        ).join(' ');
+        tokensEl.innerHTML = `
+          <div style="margin-bottom:.4rem;font-size:.78rem;color:var(--muted)">
+            Query: <strong>"${data.query}"</strong> → ${data.tokens.length} token(s) após processamento
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:.3rem">${pills}</div>`;
+      }
+
+      // --- aba Índice Invertido: mostrar postings reais ---
+      const indexDemo = document.getElementById('indexLiveDemo');
+      if (indexDemo && terms.length > 0) {
+        const rows = terms.slice(0, 5).map(t => {
+          const pills = t.sample_doc_ids.map(id =>
+            `<span class="posting-pill">doc_${id} (df=${t.doc_frequency})</span>`
+          ).join('');
+          return `<div class="index-row">
+            <span class="index-term">${t.original_term}</span>
+            <span class="index-arrow">→</span>
+            <div class="index-postings">${pills || '<span style="color:var(--muted);font-size:.78rem">sem ocorrências</span>'}</div>
+          </div>`;
+        }).join('');
+        indexDemo.innerHTML = rows;
+      }
+
+    } catch (_) {
+      // /explain indisponível — manter valores anteriores
+    }
   }
 
   // ── COMPARE ──

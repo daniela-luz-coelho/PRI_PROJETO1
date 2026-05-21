@@ -274,6 +274,20 @@ class InvertedIndex:
     # DEBUG
     # ------------------------------------------------------------------
 
+    def get_document(self, doc_id: int) -> dict | None:
+        """Return the document dict for a given doc_id, or None if not found."""
+        return self._documents.get(doc_id)
+
+    def search_by_author(self, author_name: str) -> list[dict]:
+        """Return all documents whose author list contains author_name (case-insensitive)."""
+        name_lower = author_name.lower()
+        results = []
+        for doc in self._documents.values():
+            authors = doc.get("authors", [])
+            if any(name_lower in a.lower() for a in authors):
+                results.append(doc)
+        return results
+
     def stats(self) -> dict:
         return {
             "num_documents": self.num_documents,
