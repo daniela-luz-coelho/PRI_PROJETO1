@@ -121,7 +121,7 @@ def find_chrome_executable():
 
 
 class UMinhoDSpace8Scraper:
-    def __init__(self, base_url, max_items=10):
+    def __init__(self, base_url,max_items=100):
         """
         Initialize the web scraper with Selenium WebDriver configuration.
         Args:
@@ -133,6 +133,7 @@ class UMinhoDSpace8Scraper:
             https://googlechromelabs.github.io/chrome-for-testing/#stable
         """
         self.base_url = base_url
+        self.MAX_ITEMS = max_items
         chrome_options = Options()
 
         # Try to find Chrome in default installation locations
@@ -151,10 +152,8 @@ class UMinhoDSpace8Scraper:
         self.wait = WebDriverWait(self.driver, 10)
 
         # Time to wait for Angular to settle after page loads
-        self.ANGULAR_SETTLE_TIME = 0.5  # seconds
+        self.ANGULAR_SETTLE_TIME = 1.5  # seconds
         # Max items to scrape
-        self.MAX_ITEMS = max_items
-
     def get_paper_info(self, url):
         """
         Given a paper URL, navigates to it and extracts metadata from the table.

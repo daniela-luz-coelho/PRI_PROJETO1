@@ -9,7 +9,7 @@ def main():
 
     # Create an instance of the Scraper class
     # The scraper will automatically detect Chrome in default locations
-    scraper_instance = scraper.UMinhoDSpace8Scraper(base_url, max_items=20) #20 documentos PDF
+    scraper_instance = scraper.UMinhoDSpace8Scraper(base_url, max_items=100) 
     final_results = scraper_instance.scrape()
 
     print(f"Scraping completed. Total papers scraped: {len(final_results)}")

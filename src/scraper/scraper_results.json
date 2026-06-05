@@ -183,5 +183,855 @@
             "Andrade, Carmen"
         ],
         "document_link": "N/A"
+    },
+    {
+        "title": "A flexible dynamic system for automatic grading of programming exercises",
+        "year": "2013",
+        "doi": "10.4230/OASIcs.SLATE.2013.129",
+        "abstract": "The research on programs capable to automatically grade source code has been a subject of great interest to many researchers. Automatic Grading Systems (AGS) were born to support programming courses and gained popularity due to their ability to assess, evaluate, grade and manage the students’ programming exercises, saving teachers from this manual task. This paper discusses semantic analysis techniques, and how they can be applied to improve the validation and assessment process of an AGS. We believe that the more flexible is the results assessment, the more precise is the source code grading, and better feedback is provided (improving the students learning process). In this paper, we introduce a generic model to obtain a more flexible and fair grading process, closer to a manual one. More specifically, an extension of the traditional Dynamic Analysis concept, by performing a comparison of the output produced by a program under assessment with the expected output at a semantic level. To implement our model, we propose a Flexible Dynamic Analyzer, able to perform a semantic-similarity analysis based on our Output SemanticSimilarity Language (OSSL) that, besides specifying the output structure, allows to define how to mark partially correct answers. Our proposal is compliant with the Learning Objects standard.",
+        "authors": [
+            "Fonte, Daniela",
+            "Cruz, Daniela da",
+            "Gançarski, Alda Lopes",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Tuning pipelined scientific data analyses for efficient multicore execution",
+        "year": "2016-09",
+        "doi": "10.1109/HPCSim.2016.7568410",
+        "abstract": "Scientific data analyses often apply a pipelined sequence of computational tasks to independent datasets. Each task in the pipeline captures and processes a dataset element, may be dependent on other tasks in the pipeline, may have a different computational complexity and may be filtered out from progressing in the pipeline. The goal of this work is to develop an efficient scheduler that automatically (i) manages a parallel data reading and an adequate data structure creation, (ii) adaptively defines the most efficient order of pipeline execution of the tasks, considering their inter-dependence and both the filtering out rate and the computational weight, and (iii) manages the parallel execution of the computational tasks in a multicore system, applied to the same or to different dataset elements. A real case study data analysis application from High Energy Physics (HEP) was used to validate the efficiency of this scheduler. Preliminary results show an impressive performance improvement of the pipeline tuning when compared to the original sequential HEP code (up to a 35x speedup in a dual 12-core system), and also show significant performance speedups over conventional parallelization approaches of this case study application (up to 10x faster in the same system).",
+        "authors": [
+            "Pereira, André Martins",
+            "Onofre, A.",
+            "Proença, Alberto José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "HEP-Frame: A software engineered framework to aid the development and efficient multicore execution of scientific code",
+        "year": "2016",
+        "doi": "10.1109/CSCI.2015.42",
+        "abstract": "This communication presents an evolutionary soft- ware prototype of a user-centered Highly Efficient Pipelined Framework, HEP-Frame, to aid the development of sustainable parallel scientific code with a flexible pipeline structure. HEP- Frame is the result of a tight collaboration between computational scientists and software engineers: it aims to improve scientists coding productivity, ensuring an efficient parallel execution on a wide set of multicore systems, with both HPC and HTC techniques. Current prototype complies with the requirements of an actual scientific code, includes desirable sustainability features and supports at compile time additional plugin interfaces for other scientific fields. The porting and development productivity was assessed and preliminary efficiency results are promising.",
+        "authors": [
+            "Pereira, André Martins",
+            "Onofre, A.",
+            "Proença, Alberto José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Handling default data under a case-based reasoning approach",
+        "year": "2015-01",
+        "doi": "10.5220/0005184602940304",
+        "abstract": "The knowledge acquired through past experiences is of the most importance when humans or machines try to find solutions for new problems based on past ones, which makes the core of any Case-based Reasoning approach to problem solving. On the other hand, existent CBR systems are neither complete nor adaptable to specific domains. Indeed, the effort to adapt either the reasoning process or the knowledge representation mechanism to a new problem is too high, i.e., it is extremely difficult to adapt the input to the computational framework in order to get a solution to a particular problem. This is the drawback that is addressed in this work.",
+        "authors": [
+            "Fernandes, Bruno",
+            "Freitas, Mauro",
+            "Analide, Cesar",
+            "Vicente, Henrique",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Traffic expression through ubiquitous and pervasive sensorization - smart cities and assessment of driving behaviour",
+        "year": "2015-02",
+        "doi": "10.5220/0005242500330042",
+        "abstract": "The number of portable and wearable devices has been increasing in the population of most developed countries. Meanwhile, the capacity to monitor and register not only data about people’s habits and locations but also more complex data such as intensity and strength of movements has created an opportunity to their contribution to the general wealth and sustainability of environments. Ambient Intelligence and Intelligent Decision Making processes can benefit from the knowledge gathered by these devices to improve decisions on everyday tasks such as planning navigation routes by car, bicycle or other means of transportation and avoiding route perils. Current applications in this area demonstrate the usefulness of real time system that inform the user of conditions in the surrounding area. Nevertheless, the approach in this work aims to describe models and approaches to automatically identify current states of traffic inside cities and relate such information with knowledge obtained from historical data recovered by ubiquitous and pervasive devices. Such objective is delivered by analysing real time contributions from those devices and identifying hazardous situations and problematic sites under defined criteria that has significant influence towards user well-being, economic and environmental aspects, as defined is the sustainability definition.",
+        "authors": [
+            "Silva, Fábio",
+            "Analide, Cesar",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Database Preservation Toolkit: a flexible tool to normalize and give access to databases",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "Digital preservation is emerging as an area of work and research that tries to provide answers that will ensure a continued and long-term access to information stored digitally. IT Platforms are constantly changing and evolving and nothing can guarantee the continuity of access to digital artifacts in their absence. This paper focuses on a specic family of digital objects: Relational Databases; they are the most frequent type of databases used by organizations worldwide. Database Preservation Toolkit enables the preservation of relational databases holding the structure and content of the the database in a preservation format in order to provide access to the database information in a long term period. If in one hand there is a need to migrate databases to newer ones that appear with technological evolution, on the other hand there is also the need to preserve the information they hold for a long time period, due to legal duties but also due to archival issues. That being said, that information must be available no matter the database management system where the information came from. In this area, solutions are still scarce. Main products for relational database preservation include CHRONOS and SIARD. The rst one is, in most of the cases, unreachable due to the associated costs. The second one is not really a product but a preservation format. The main idea behind this work was to explore the main features and limitations of the existing products in order to improve 'db-preservation-toolkit' (http://keeps.github.io/ db-preservation-toolkit/), an extracted component from the RODA project (http://www.roda-community.org). Therefore, 'db-preservation-toolkit' was improved with respect to performance and also with new features addiction in order to support more database management systems, address some missing features of the other products, support of a new preservation format (SIARD) and provide an interface where it is possible to access and search the information of the archived databases.",
+        "authors": [
+            "Ramalho, José Carlos",
+            "Faria, Luís",
+            "Silva, Hélder",
+            "Coutada, Miguel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Overcoming the lack of human-interaction in Ubiquitous Group Decision Support Systems",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "The market globalization and the firms internationalization hinders the matching of the top managers agenda. Therefore, creating conditions for meetings in the same space or time is sometimes impossible. In order to enable the decision making in this kind of scenario the Group Decision Support Sys-tems evolved to the so called Ubiquitous Group Decision Support Systems (UbiGDSS). However, although the UbiGDSS solve part of space-time prob-lems, they originated other problems related to the lack of human interaction, such as: to understand how the arguments used can influence each of the deci-sion makers, what is their satisfaction regarding the decision made, and other affective issues such as emotions and mood. Here we propose a theoretical model that is specially designed for agents in order to understand the interac-tions impact on each agent and their satisfaction with the decision made.",
+        "authors": [
+            "Carneiro, João",
+            "Santos, Ricardo",
+            "Marreiros, Goreti",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Localization system for pedestrians based on sensor and information fusion",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "Nowadays there is an increase of location-aware mobile applications. However, these applications only retrieve location with a mobile device’s GPS chip. This means that in indoor or in more dense environments these applications don’t work properly. To provide location information everywhere a pedestrian Inertial Navigation System (INS) is typically used, but these systems can have a large estimation error since, in order to turn the system wearable, they use low-cost and low-power sensors. In this work a pedestrian INS is proposed, where force sensors were included to combine with the accelerometer data in order to have a better detection of the stance phase of the human gait cycle, which leads to improvements in location estimation. Besides sensor fusion an information fusion architecture is proposed, based on the information from GPS and several inertial units placed on the pedestrian body, that will be used to learn the pedestrian gait behavior to correct, in real-time, the inertial sensors errors, thus improving location estimation.",
+        "authors": [
+            "Anacleto, Ricardo",
+            "Figueiredo, Lino",
+            "Almeida, Ana",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Speculative Computation with constraint processing for the generation of clinical scenarios",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "Clinical decision making often involves making decisions in situations of uncertainty. Clinical Decision Support Systems are tools devised to help in such moments, but the information may not be available during the decision process. Be it because of communication failure or errors in data input, the truth is that it would be beneficial to present the most likely clinical scenarios to a physician, given the incompleteness of the information. Speculative Computation offers a way to structure such a scenario generation process. This work presents a framework for clinical decision support with disjunctive constraint processing that acts as an interface with computer-interpretable versions of Clinical Practice Guidelines. Being a reasoning process based on defaults, it has to rely on a default generation process. For that we propose Bayesian Networks. The interaction between the different components of the system resulted in a process capable of generating clinical scenarios.",
+        "authors": [
+            "Oliveira, Tiago José Martins",
+            "Satoh, Ken",
+            "Novais, Paulo",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Making justice more accessible",
+        "year": "2014",
+        "doi": "10.1145/2691195.2691284",
+        "abstract": "From the point of view of the Citizen, Justice is not always readily accessible. Either because it is a lengthy process, potentially expensive, sometimes unclear or simply scary, people will often avoid or withdraw from a judicial process, especially in those cases that involve relatively small amounts. This results in the giving up of a basic right, with the potential loss of rightful benefits. In this paper we briefly analyze the main aspects that impair access to Justice nowadays. We then move on to look at recent technological developments in the field of Online Dispute Resolution to argue that these can, in the near future, have a significant role in improving access to Justice. Specifically, we analyze the UMCourt Conflict Resolution Framework, developed by our research team, and address the different dimensions in which such tools contribute to make Justice more accessible, namely through better access to useful information, support in decision-making or more cost-effective processes.",
+        "authors": [
+            "Carneiro, Davide Rua",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Managing motivation at the workplace through negotiation",
+        "year": "2014",
+        "doi": "10.3233/978-1-61499-468-8-91",
+        "abstract": "Recent research shows that our performance and satisfaction at work depends more on motivational factors than the number of hours or the intensity of the work. In this paper we propose a framework aimed at managing motivation to improve workplace indicators. The key idea is to allow team managers and workers to negotiate over the conditions of the tasks so as to find the best motivation for the worker within the constraints of what the organization may offer.",
+        "authors": [
+            "Carneiro, Davide Rua",
+            "Novais, Paulo",
+            "Zeleznikow, John",
+            "Andrade, Francisco Carneiro Pacheco",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Webifying the computerized execution of Clinical Practice Guidelines",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07476-4_18",
+        "abstract": "The means through which Clinical Practice Guidelines are dissemi-nated and become accessible are a crucial factor in their later adoption by health care professionals. Making these guidelines available in Clinical Decision Sup-port Systems renders their application more personal and thus acceptable at the moment of care. Web technologies may play an important role in increasing the reach and dissemination of guidelines, but this promise remains largely unful-filled. There is a need for a guideline computer model that can accommodate a wide variety of medical knowledge along with a platform for its execution that can be easily used in mobile devices. This work presents the CompGuide frame-work, a web-based and service-oriented platform for the execution of Computer-Interpretable Guidelines. Its architecture comprises different modules whose in-teraction enables the interpretation of clinical tasks and the verification of clinical constraints and temporal restrictions of guidelines represented in OWL. It allows remote guideline execution with data centralization, more suitable for a work en-vironment where physicians are mobile and not bound to a machine. The solution presented in this paper encompasses a computer-interpretable guideline model, a web-based framework for guideline execution and an Application Programming Interface for the development of other guideline execution systems.",
+        "authors": [
+            "Oliveira, Tiago José Martins",
+            "Leão, Pedro",
+            "Novais, Paulo",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Applying Speculative Computation to Guideline-based Decision Support Systems",
+        "year": "2014",
+        "doi": "10.1109/CBMS.2014.32",
+        "abstract": "Clinical Practice Guidelines, as evidence-based recommendations are the ideal support for Clinical Decision Support Systems. The intricacies of a guideline execution tool are related with the establishment of a care flow with an appropriate order between procedures and the modelling of decision points. One of such decision points is the choice between alternative tasks based on trigger conditions regarding a patient's state. It may be the case that, when there is the need to choose one of the alternative tasks, the system does not possess all the required information to do so, thus rendering impossible to reach an outcome. Speculative Computation and Abduction may increase the efficiency of this process by allowing the system to advance the computation of a solution, even while it is waiting for a response from the information sources. This work provides the basis for a Speculative Computation framework able to cope with decisions of clinical care flows. The methods developed herein were devised to support practitioners and to improve patient-centred medicine by providing maps of the most likely evolution of a patient, even when the information is incomplete.",
+        "authors": [
+            "Oliveira, T.",
+            "Neves, José",
+            "Novais, Paulo",
+            "Satoh, Ken"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Analysis of student’s context in e-Learning",
+        "year": "2014",
+        "doi": "10.1109/SIIE.2014.7017726",
+        "abstract": "Traditionally, the Teacher-Student relationship is a close one. The student spends several hours of a day in the presence of the teacher and can talk, express doubts and pose questions. These doubts, or the general feeling towards the object of learning, are not only expressed explicitly but also implicitly. Indeed, the teacher is constantly, even if in an unconscious way, reading the state of the student in search for sings of doubt, frustration, stress or fatigue. This information is then used by the teacher to adapt their methods or to personalize their approach in function of each student. These aspects, intuitively central in education, become less efficient when learning takes place in a Virtual Environment. Indeed, the growth of online courses, in which the student and the teacher often never even meet, make learning more difficult for a number of reasons. In this paper we analyse these reasons and put forward an approach for inferring the student’s state that aims to minimize the effects of the absence of the teacher.",
+        "authors": [
+            "Gonçalves, Sérgio",
+            "Carneiro, Davide Rua",
+            "Alfonso-Cedón, Javier",
+            "Fdez-Riverola, Florentino",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "A different approach in an AAL ecosystem: a mobile assistant for the caregiver",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07767-3_10",
+        "abstract": "Currently the Ambient Assisted Living and the Ambient Intelligence areas are very prolific. There is a demand of security and comfort that should be ensured at people’s homes. The AAL4ALL (ambient assisted living for all) pro-ject aims to develop a unified ecosystem and a certification process, allowing the development of fully compatible devices and services. The UserAccess emerges from the AAL4ALL project, being a demonstration of its validity. The UserAc-cess architecture, implementation, interfaces and test scenario are presented, along with the sensor platform specially developed for the AAL4ALL project.",
+        "authors": [
+            "Costa, Ângelo",
+            "Gomes, Óscar",
+            "Novais, Paulo",
+            "Simões, Ricardo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Understanding decision quality through satisfaction",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07767-3_33",
+        "abstract": "One of the most important factors to determine the success of an or-ganization is the quality of decisions made. In order to improve the decisions taken and to strengthen the competitiveness of organizations, systems such as Group Decision Support Systems (GDSSs) have been strongly developed and studied in recent decades. The amount of GDSSs incorporating automatic nego-tiation mechanisms, such as argumentation, is increasing nowadays. The evalu-ation of these mechanisms and the understanding of their real benefits for the organizations is still a hard challenge. In this article, we propose a model that allows a GDSS to measure the participant’s satisfaction with the decision, con-sidering aspects such as problem evaluation, personality, emotions and expecta-tions. This model is intended to enable the understanding of the decision’s qual-ity achieved with an argumentation system and to evaluate its capability to po-tentiate the decision’s quality. The proposed model validates all the assump-tions found in the literature regarding the participant’s satisfaction.",
+        "authors": [
+            "Carneiro, João",
+            "Marreiros, Goreti",
+            "Novais, Paulo",
+            "Santos, Ricardo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Modelling an orientation system based on speculative computation",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07593-8_37",
+        "abstract": "Progress is inherent to a living society, which may occur in several different areas (e.g. computation, healthcare) and manners. The present (or now) is the time that is associated with the events perceived directly and in the first time, making, for example, the society to be very inquisitive on assistive technologies and how they may improve the human beings quality of living. This application of scientific knowledge for practical purposes may help the user in his/her diminished capabilities, and, usually, implies a small adaptation on the part of the individual in the use of devices; indeed one of the die down potentials of people with cognitive disabilities is the one of spatial orientation. On the other hand several were the authors that have developed systems to help an human being to travel between two locations. However, once the system is set up the change in the configurations have to be done manually in order to better adjust the system to the user. In order to go round this drawback, in this work it is presented a framework of speculative computation to set up the computation of the next user step using default values. When the information is obtained the computation is revised. Thus, the system may have a faster reaction to the user stimulus or it may start warning the user before he/she takes the wrong direction.",
+        "authors": [
+            "Ramos, João Ricardo Martins",
+            "Satoh, Ken",
+            "Novais, Paulo",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Person localization using sensor information fusion",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07596-9_6",
+        "abstract": "Nowadays the incredible grow of mobile devices market led to the need for location-aware applications. However, sometimes person location is di cult to obtain, since most of these devices only have a GPS (Global Positioning System) chip to retrieve location. In order to sup- press this limitation and to provide location everywhere (even where a structured environment doesn't exist) a wearable inertial navigation sys- tem is proposed, which is a convenient way to track people in situations where other localization systems fail. The system combines pedestrian dead reckoning with GPS, using widely available, low-cost and low-power hardware components. The system innovation is the information fusion and the use of probabilistic methods to learn persons gait behavior to correct, in real-time, the drift errors given by the sensors.",
+        "authors": [
+            "Anacleto, Ricardo",
+            "Figueiredo, Lino",
+            "Almeida, Ana",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Generating human-computer micro-task workflows from domain ontologies",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07233-3_10",
+        "abstract": "With the growing popularity of micro-task crowdsourcing platforms, a renewed interest in the resolution of complex tasks that require the coopera-tion of human and machine participants has emerged. This interest has led to workflow approaches that present new challenges at different dimensions of the human-machine computation process, namely in micro-task specification and human-computer interaction due to the unstructured nature of micro-tasks in terms of domain representation. In this sense, a semi-automatic generation envi-ronment for human-computer micro-task workflows from domain ontologies is proposed. The structure and semantics of the domain ontology provides a com-mon ground for understanding and enhances human-computer cooperation.",
+        "authors": [
+            "Luz, Nuno",
+            "Silva, Nuno",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Establishing the relationship between personality traits and stress in an intelligent environment",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07467-2_40",
+        "abstract": "Personality traits play a key role in the shaping of emotions, moods, cognitions, and behaviours of individuals interacting in a virtual environment. The personalities one exhibits reflect one’s perception of the world and are demonstrated in the act of communication. Thus, the evaluation of a message can be changed due to stress and mood variations. Being able to identify the degree of relationship between one’s personality characteristics and one’s current stress state can thus facilitate the communication process. In particular, in this paper it is studied the correlation between some personality traits and the stress levels exhibited by users’ interactions. To do so a novel approach was followed in which an intelligent environment is used to support the stress recognition process providing important personality related information. An experiment has been designed for the purpose of addressing the estimation of relevant aspects of interactions that occur in a rich sensory environment. Outputs from the experiment, such as the relation between personality characteristics and stress, can be used to maximize the benefits of virtual environments and its applications in fields such as learning, medicine or conflict resolution.",
+        "authors": [
+            "Gomes, Marco",
+            "Oliveira, Tiago José Martins",
+            "Silva, Fábio",
+            "Carneiro, Davide Rua",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "A non-invasive approach to detect and monitor acute mental fatigue",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07467-2_36",
+        "abstract": "In our day to day, we often experience a sense of being tired due to mental or physical workload. Along with that, there is also a feeling of degrading performance, even after the completion of simple tasks. These mental states however, are often not felt consciously or are ignored. This is an attitude that may result in human error, failure, and may lead to potential health problems together with a decrease in quality of life. States of acute mental fatigue may be detected with the close monitoring of certain indicators, such as productivity, performance and health indicators. In this paper, a model and prototype are proposed to detect and monitor acute acute fatigue, based on non-invasive Humancomputer Interaction (HCI). This approach will enable the development of better working environments, with an impact on the quality of life and the work produced",
+        "authors": [
+            "Pimenta, André",
+            "Carneiro, Davide Rua",
+            "Novais, Paulo",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "An ontology for human-machine computation workflow specification",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07617-1_5",
+        "abstract": "Lately, a focus has been given to the re-usability of workflow defini-tions and to flexible and re-usable workflow components, culminating with ap-proaches that harness the benefits of the enriched semantics provided by ontol-ogies. Following this trend and the needs of multiple application domains, such as micro-task crowdsourcing and ambient assisted living, of incorporating co-operation between the efforts of human and machine entities, this paper propos-es an ontology and process for the definition, instantiation and execution of se-mantically enriched workflows.",
+        "authors": [
+            "Luz, Nuno",
+            "Pereira, Carlos",
+            "Silva, Nuno",
+            "Novais, Paulo",
+            "Teixeira, António",
+            "Silva, Miguel Oliveira e"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "New applications of Ambient Intelligence",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07596-9_25",
+        "abstract": "Ambient Intelligence emerged more than two decades ago, with the exciting promise of technologically empowered environments that would be everywhere, cater to all our needs, be constantly available, know who we are and what we like, and allow us to make explicit requests using natural means instead of the traditional mouse and keyboard. At a time in which this technological unravelling was expected to have already happened, we still use the mouse and the keyboard. In this paper we make a brief analysis of why is this evolution taking more than initially expected. We then move on to analyse several di erent projects that are innovative, in the sense that they encompass elds of application that go beyond the initially envisioned, and show the diverse areas that AmI systems may potentially come to change.",
+        "authors": [
+            "Carneiro, Davide Rua",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "How musical selection impacts the performance of the interaction with the computer",
+        "year": "2015",
+        "doi": "10.1007/978-3-319-10422-5_4",
+        "abstract": "In this busy society of ours people push their limits to work better and more in order to remain competitive with their peers. Nonetheless, working longer hours does not necessarily improves productivity nor performance. In order to prevent the negative consequences of this increasing trend, the evolution of performance throughout the day of work should be more closely monitored. This could avoid undesirable states or even breakdowns, which have social and economical implications. In this work we measure user performance through their interaction with the computer. We monitor its evolution during a day of work and how di erent types of music may increase or decrease its natural daily degradation. We conclude that the relationship between types of music and its e ects is not universal and depends, among other things, on the musical pro le of the individual. A prototype for a distributed music recommendation service is presented that suggests musics at an individual and group level, based on user musical pro les and objectives.",
+        "authors": [
+            "Costa, Mickael da",
+            "Carneiro, Davide Rua",
+            "Dias, Marcelo",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Detection of distraction and fatigue in groups through the analysis of interaction patterns with computers",
+        "year": "2015",
+        "doi": "10.1007/978-3-319-10422-5_5",
+        "abstract": "Nowadays, our lifestyle can lead to a scatter of focus, especially when we attend to several tasks in parallel or have to filter the important information from all the remaining one. In the context of a computer this usually means interacting with several applications simultaneously. Over the day, this significant demand on our brain results in the emergence of fatigue, making an individual more prone to distractions. Good management of the working time and effort invested in each task, as well as the effect of breaks at work, can result in better performance and better mental health, delaying the effects of fatigue. This paper presents a non-intrusive and non-invasive method for measuring distraction and fatigue in an individual and in a group of people. The main aim is to allow team managers to better understand the state of their collaborators, thus preparing them to take better decisions concerning their management.",
+        "authors": [
+            "Pimenta, André",
+            "Carneiro, Davide Rua",
+            "Novais, Paulo",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "An AAL collaborative system: the AAL4ALL and a mobile assistant case study",
+        "year": "2014",
+        "doi": "10.1007/978-3-662-44745-1_69",
+        "abstract": "The areas of Ambient Assisted Living (AAL) and Intelligent Systems (IS) are in full development, but there are still some issues to be resolved. One issue is the myriad of user oriented solutions that are rarely built to interact or integrate with other systems available in the market. In this paper we present the AAL4ALL project and the UserAccess implementation, showing a novel approach towards virtual organizations, interoperability and certification. The aim of this project is to provide a collaborative network of services and devices that connect every user and product from other developers, building a heterogeneous ecosystem. Thus establishing an environment for collaborative care systems, which may be available to the users in from of safety services, comfort services and healthcare services.",
+        "authors": [
+            "Costa, Ângelo",
+            "Novais, Paulo",
+            "Simões, Ricardo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Improving modularity, interoperability and extensibility in Ambient Intelligence",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07596-9_7",
+        "abstract": "Ambient Intelligence (AmI) and its related elds emerged some years ago with the exciting promise of pervasive intelligence, magic interaction mechanisms, and everywhere availability. This promise would be materialized in homes that knew all about our habits and preferences, proactive workplaces to support people's work or personal digital assistants to improve our daily living in all aspects possible. This somewhat utopian vision, expected by many to have already taken place, remains unaccomplished and far from it. Many challenges still lay ahead which delayed and continue to delay the expected technological unravelling. In this paper we focus on the immense technological challenges of designing and implementing AmI Systems. Speci cally, we propose a technological approach that will contribute to overcome some of these challenges by making developed AmI solutions more modular, interoperable, and extensible. This will result especially advantageous for large development teams or teams that span multiple institutions.",
+        "authors": [
+            "Gomes, Marco",
+            "Carneiro, Davide Rua",
+            "Pimenta, André",
+            "Nunes, Milton",
+            "Novais, Paulo",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Analysis of human performance as a measure of mental fatigue",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-07617-1_35",
+        "abstract": "In our day to day, we often experience a sense of being tired due to mental or physical workload. Along with that, there is also a feeling of degrading performance, even after the completion of simple tasks. These mental states however, are often not felt consciously or are ignored. This is an attitude that may result in human error, failure, and may lead to potential health problems together with a decrease in quality of life. States of acute mental fatigue may be detected with the close monitoring of certain indicators, such as productivity, performance and health indicators. In this paper, a model and prototype are proposed to detect and monitor acute acute fatigue, based on non-invasive Humancomputer Interaction (HCI). This approach will enable the development of better working environments, with an impact on the quality of life and the work produced.",
+        "authors": [
+            "Pimenta, André",
+            "Carneiro, Davide Rua",
+            "Novais, Paulo",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Improving conflict support environments with information regarding social relationships",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-12027-0_63",
+        "abstract": "Having knowledge about social interactions as a basis for informed decision support in situations of conflict can be determinant. However, lower attention is given to the social network interpretation process in conflict management approaches. The main objective of the work presented here is to identify how the parties’ social networks correlate to their negotiation performance and how this can be formalized. Therefore, an experiment was set up in which was tried to streamline all the relevant aspects of the interaction between the individual and its environment that occur in a rich sensory environment (where the contextual modalities were monitored). This research explicitly focuses on the idea that an Ambient Intelligence system can create scenarios that augment the possibilities of reaching a positive outcome taking into account the role of contextualized social relationships in various conflict management strategies.",
+        "authors": [
+            "Gomes, Marco",
+            "Alfonso-Cendón, Javier",
+            "Marqués-Sánchez, Pilar",
+            "Carneiro, Davide Rua",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Social networks gamification for sustainability recommendation systems",
+        "year": "2013-05",
+        "doi": "10.1007/978-3-319-00551-5_38",
+        "abstract": "Intelligent environments and ambient intelligence provide means to monitor physical environments and to learn from users, generating data that can be used to promote sustainability. With communities of intelligent environments, it is possible to obtain information about environment and user behaviors which can be computed and ranked. Such rankings are bound to be dynamic as users and environments exchange interactions on a daily basis. This work aims to use knowledge from communities of intelligent environments to their own benefit. The approach presented in this work uses information from each environment, ranking them according to their sustainability assessment. Recommendations are then computed using similarity and clustering functions ranking users and environments, updating their previous records and launching new recommendations in the process.",
+        "authors": [
+            "Silva, Fábio",
+            "Analide, César",
+            "Rosa, Luís",
+            "Felgueiras, Gilberto",
+            "Pimenta, Cedric"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "An intelligent approach for open clinical laboratory results in Intensive Care Medicine",
+        "year": "2013",
+        "doi": "10.1109/IEEM.2013.6962579",
+        "abstract": "The process of how laboratory tests are made and the results are delivered is very important to the decision making process in medicine. This situation is more critical in areas like Intensive Medicine, where the decision needs to be performed quickly and accurately. Typically, the results are presented in a closed format (document). This format represents a barrier for the implementation of Intelligent Decision Support Systems that make use of laboratory results to feed predictive models to help the Intensive Care professionals in such critical decisions. In order to overcome this limitation an intelligent agent based system has been implemented. Lab results are now collected, processed and used in real-time in an open format contributing to the implementation of an automatic scoring system.",
+        "authors": [
+            "Portela, Filipe",
+            "Santos, Manuel Filipe",
+            "Machado, José Manuel",
+            "Abelha, António",
+            "Silva, Álvaro",
+            "Rua, Fernando"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Pervasive ensemble data mining models to predict organ failure and patient outcome in intensive medicine",
+        "year": "2013",
+        "doi": "10.1007/978-3-642-54105-6_27",
+        "abstract": "The number of patients admitted in Intensive care units (ICU) with organ failure is significant. This type of situation is common in Intensive Medicine. Intensive medicine is a specific area of medicine with the objective to avoid organ failure and recover patients in seriously ill conditions. This type of problems can culminate in the death of patient. In order to help the intensive medicine professionals in the moment of they take the decision, a Pervasive Intelligent Decision Support System called INTCare were developed. INTCare uses ensemble data mining to predict the probability of occurring an organ failure or patient die in the next hour. With the purpose to obtain always the better results, a measure was implemented to assess the models quality. All the transforming process and model induction are performed automatically and in real-time. The ensembles use online-learning to improve their models. In this paper the ensemble approach was explored and the results were compared at level of sensitivity, specificity, accuracy and total error. After the analysis was possible conclude that the ensembles are a too valid option to help the decision process in intensive Medicine.",
+        "authors": [
+            "Portela, Filipe",
+            "Santos, Manuel Filipe",
+            "Silva, Álvaro",
+            "Abelha, António",
+            "Machado, José Manuel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Stand-alone Electronic Health Record",
+        "year": "2013-12",
+        "doi": "10.1109/IEEM.2013.6962571",
+        "abstract": "Hospitals have made an effort to ensure the perma- nent availability of data, with the reliance on the information and scalability at the lowest price. Quality and information access speed are guaranteed. On the other hand, information systems become core systems and progressively clinical paper based records has been dematerialized. The single access to information about patients and electronic media, even in critical situations, are now a reality. Despite the efforts referred to above, there remains the possibility of difficulty in accessing information in case of network or electricity failures, or in the event of a local unpredictable disaster. In this paper, we present an extension to the Electronic Health Record, called stand-alone module, to ensure the hospital’s access to patient’s minimal clinical record in a breakdown scenario.",
+        "authors": [
+            "Duarte, Júlio",
+            "Pontes, Gabriel",
+            "Salazar, Maria",
+            "Santos, Manuel",
+            "Abelha, António",
+            "Machado, José Manuel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "An assessment on the length of hospital stay through Artificial Neural Networks",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "The attitude of stashing costs and preventing people of any kind of intervention on the valuation of the problem referred to above, may undermine their belief on present society values and on their way of living. Cutting funds from Education to Health is at best delaying the inevitable crash that is foresha- dowed. Indeed, regarding people, a major concern may be described as jeopar- dizing their health condition, i.e., providing healthcare is a very sensitive issue and prunes to drastic changes in short spaces of time. Factors like age, sex, and context – house conditions, daily lives – should also be central when deciding how long a specific patient should remain in a hospital. In no way, ought this be decided by economic circumstances alone. To fulfill this goal, a Logic Pro- gramming based approach is used for knowledge representation and reasoning, letting the modeling of the universe of discourse in terms of defective data, in- formation and knowledge. Artificial Neural Networks are enforced as the com- putational framework, allowing one to predict how long a patient should remain in a hospital.",
+        "authors": [
+            "Abelha, Vasco António Pinheiro Costa",
+            "Vicente, Henrique",
+            "Machado, José Manuel",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "An artificial neuronal network approach to diagnosis of Attention Deficit Hyperactivity Disorder",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "On the one hand about 3% to 12% of school-aged children present Attention Deficit Hyperactivity Disorder (ADHD), a situation that is characterized by attention deficit, impulsiveness and restlessness, coming from a change in the neurotransmitters of the central nervous system, caused by psychological messes, environment effects or genetic characteristics. One the other hand, when one ́s aim is the prediction of ADHD in children and teenagers, we need to be able to handle incomplete or default data, like the one in ActiGraph ́s images that may exhibit potential disordered sleep patterns. Indeed, using a new approach to knowledge representation and reasoning based on Logic Programming, complemented with a computational framework based on Artificial Neural Networks, ActiGraph’s pioneering actigraphy monitoring systems may deliver, on the fly, real world information about sleep/wake behavior, circadian rhythms, daytime physical activity, and environmental light intensity for the study and clinical assessment of sleep disorders and the relationship between sleep and chronic disease.",
+        "authors": [
+            "Pereira, Sónia",
+            "Gomes, Sabino",
+            "Vicente, Henrique",
+            "Ribeiro, Jorge",
+            "Abelha, António",
+            "Novais, Paulo",
+            "Machado, José Manuel",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Systematic coronary risk evaluation through artificial neural networks based systems",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "On the one hand, cardiovascular diseases have severe consequences on an individual and for the society in general, once they are the main cause to death. These facts reveal that it is vital to get preventive, by knowing how probable is to have that kind of illness. On the other hand, and until now, this risk has been assessed by a Systematic Coronary Risk Evaluation procedure that takes data from charts based on gender, age, total cholesterol, systolic blood pressure and smoking status, but with no conceivable potential to deal with the incomplete or default data that is presented on those tools. Therefore, the focus in this work will be on the development of a risk evaluation support system based on a low-risk record, grounded on a new approach to knowledge representation and reasoning, that based on an extension to the Logic Programming language, will be able to overcome the drawbacks of the present ones. This will be complemented with a computational framework based on Artificial Neural Networks.",
+        "authors": [
+            "Rodrigues, Bruno",
+            "Gomes, Sabino",
+            "Vicente, Henrique",
+            "Abelha, António",
+            "Novais, Paulo",
+            "Machado, José Manuel",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Extending the use of SNOMED concepts in electronic health records",
+        "year": "2014",
+        "doi": "N/A",
+        "abstract": "The use of classification, standard and terminology systems proves to be of particular importance to classify therapist techniques, as well as clinical and nursing procedures, and to formulate diagnoses. In this paper, the Department of pathological anatomy was chosen as a pilot service to produce reports using SNOMED and to evaluate the ben- efits of SNOMED in a real context. This implementation is an example of a successful interoperability between healthcare information systems, including electronic health record systems. It is the first step to extend SNOMED to the whole hospital improving clinical research, providing useful alerts and allowing system prevention and medical error reduction.",
+        "authors": [
+            "Duarte, Júlio",
+            "Castro, Sara",
+            "Santos, Manuel",
+            "Abelha, António",
+            "Machado, José Manuel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Removing inefficiencies from scientific code: the study of the Higgs boson couplings to top quarks",
+        "year": "2014",
+        "doi": "10.1007/978-3-319-09147-1_42",
+        "abstract": "This paper presents a set of methods and techniques to remove inefficiencies in a data analysis application used in searches by the ATLAS Experiment at the Large Hadron Collider. Profiling scientific code helped to pinpoint design and runtime inefficiencies, the former due to coding and data structure design. The data analysis code used by groups doing searches in the ATLAS Experiment contributed to clearly identify some of these inefficiencies and to give suggestions on how to prevent and overcome those common situations in scientific code to improve the efficient use of available computational resources in a parallel homogeneous platform.",
+        "authors": [
+            "Pereira, André Martins",
+            "Onofre, A.",
+            "Proença, Alberto José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Paralelização de algoritmos de enumeração para o problema do vector mais curto em sistemas de memória partilhada e distribuída",
+        "year": "2014-09",
+        "doi": "N/A",
+        "abstract": "A criptografia baseada em retículos tem vindo a tornar-se um tópico central ao longo da última década, uma vez que se acredita que este tipo de criptografia seja resistente a ataques infligidos com computadores quânticos. A segurança desta criptografia é medida pela eficácia e praticabilidade dos algoritmos que resolvem problemas centrais em retículos, como o problema do vector mais curto (PVC), e é, por isso, importante determinar qual o desempenho máximo destes algoritmos em arquitecturas computacionais de alto rendimento. Neste sentido, este artigo apresenta, pela primeira vez, um estudo detalhado sobre o desempenho dos dois mais promissores algoritmos de resolução do PVC, o ENUM e uma variante eficiente da enumeração de Schnorr-Euchner, com e sem poda extrema. Em particular, são propostas versões paralelas destes algoritmos, desenvolvidas para óptimo balanço de carga e, consequentemente, melhor desempenho. Conduziu-se uma extensa série de testes, quer em memória partilhada, para as variantes sem poda, quer em memória distribuída, para as variantes com poda. Os resultados mostram que as implementações em memória partilhada atingem, em certos casos, acelerações lineares até 16 \\textit{threads}. As implementações em memória distribuída, por seu turno, são aceleradas em cerca de 13 vezes para 16 processos, permitindo a resolução do PVC em retículos em dimensão 80 em menos de 250 segundos.",
+        "authors": [
+            "Correia, Fábio José Gonçalves",
+            "Mariano, Artur Miguel Matos",
+            "Proença, Alberto José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Partial correctness and continuous integration in computer supported education",
+        "year": "2014-04",
+        "doi": "N/A",
+        "abstract": "In this paper we support the idea that students and teachers will benefit from a computer-based system that assesses programming exercises and provide immediate and detailed feedback: students would be able to evolve in the right direction and teachers would follow and assess more fairly their students. This assessment should outperform the typical right/wrong evaluation returned by existing tools, allowing for a flexible partial evaluation. Moreover, we adopt a concept from Agile Development, the Continuous Integration (CI), to improve students’ effectiveness. The applicability of CI reflects a better monitoring by the teams and their individual members, also providing the ability to improve the speed of the development. Besides the description of the capabilities that we require from an Automatic Grading System (AGS), we discuss iQuimera, an improved AGS that we are working on, that implements our teaching/learning principles.",
+        "authors": [
+            "Fonte, Daniela",
+            "Vilas Boas, Ismael",
+            "Oliveira, Nuno",
+            "Cruz, Daniela da",
+            "Gançarski, Alda Lopes",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Analysis of cross-platform development frameworks for a smartphone pediatric application",
+        "year": "2013-12",
+        "doi": "10.1109/IEEM.2013.6962572",
+        "abstract": "The number of smartphone users is growing rapidly, including among healthcare professionals [1]. Together with a pediatrician, it was identified the necessity of a mobile tool to support clinical practice and decision. However, in order to reach the majority smartphone users it is necessary to develop applications for multiple platforms. In this article it is done an analysis of the smartphone market-share, a study of some of the most popular smartphone cross-platform development frameworks and finally selected the best framework to develop a pediatric application.",
+        "authors": [
+            "Oliveira, Rui Emanuel Barros",
+            "Pontes, Gabriel",
+            "Machado, José Manuel",
+            "Abelha, António"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Extending a patient monitoring system with identification and localisation",
+        "year": "2013-12",
+        "doi": "10.1109/IEEM.2013.6962577",
+        "abstract": "Intensive Care Units (ICUs) are a good environment for the application of intelligent systems in the healthcare area because it requires diagnosing, monitoring, and treatment of patients with critical illness. An intelligent decision support system, named INTCare, was developed and tested in CHP, a hospital center in Oporto. The need to detect the presence or absence of the patient in room, in order to stop the collection of redundant data concerning about the patient vital status led to the development of an RFID localisation and monitoring system - PaLMS, able to uniquely and unambiguously identify a patient and perceive its presence in room, making the process of data collection and alert event more accurate. The solution was the implementation of an intelligent multi-agent system that connects the Patient Management System module, the INTCare module and the RFID equipment, using the HL7 standard embedded in agents behaviours.",
+        "authors": [
+            "Marins, Fernando Augusto Silva",
+            "Rodrigues, Rui",
+            "Portela, Filipe",
+            "Santos, Manuel Filipe",
+            "Abelha, António",
+            "Machado, José Manuel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Data mining for real-time intelligent decision support system in intensive care medicine",
+        "year": "2013",
+        "doi": "N/A",
+        "abstract": "The introduction of Intelligent Decision Support Systems (IDSS) in critical areas like Intensive Medicine is a complex and difficult process. The professionals of Intensive Care Units (ICU) haven’t much time to register data because the direct care to the patients is always mandatory. In order to help doctors in the decision making process, the INTCare system has been deployed in the ICU of Centro Hospitalar of Porto, Portugal. INTCare is an IDSS that makes use of data mining models to predict the outcome and the organ failure probability for the ICU patients. This paper introduces the work carried out in order to automate the processes of data acquisition and data mining. The main goal of this work is to reduce significantly the manual efforts of the staff in the ICU. All the processes are autonomous and are executed in real-time. In particular, Decision Trees, Support Vector Machines and Naïve Bayes were used with online data to continuously adapt the predictive models. The data engineering process and achieved results, in terms of the performance attained, will be presented.",
+        "authors": [
+            "Portela, Filipe",
+            "Santos, Manuel Filipe",
+            "Silva, Álvaro",
+            "Machado, José Manuel",
+            "Abelha, António",
+            "Rua, Fernando"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Pervasive information systems to intensive care medicine : technology aceptance model",
+        "year": "2013",
+        "doi": "10.5220/0004441001770184",
+        "abstract": "The usability of information systems in critical environments like Intensive Care Units (ICU) is far than the expected and desirable. Typically, ICUs have a set of not integrated information silos and a high number of data recorded in paper. Whenever ICU professionals need to make a decision they have to deal with a high number of data sources containing useful information. Unfortunately, they can't use those sources due to the difficulty of evaluating them in a correct time. Pervasive Intelligent Decision Support Systems (PIDSS), operating automatically and in real-time, can be used to improve the decision making if they are suited to the requirements of the ICU. In this work a PIDSS have been assessed in terms of quality and user acceptance making use of Technology Acceptance Model (TAM). TAM proved to be very useful when combined with Delphi method features to involve the professionals and to make the system usable.",
+        "authors": [
+            "Aguiar, Jorge",
+            "Portela, Filipe",
+            "Santos, Manuel Filipe",
+            "Machado, José Manuel",
+            "Abelha, António",
+            "Silva, Álvaro",
+            "Rua, Fernando",
+            "Pinto, Filipe"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Modeling intelligent agents to integrate a patient monitoring system",
+        "year": "2013-04",
+        "doi": "10.1007/978-3-319-00563-8_17",
+        "abstract": "ICU units are a good environment for the application of in- telligent systems in the healthcare arena, due to its critical environment that require diagnose, monitor and treatment of patients with serious illnesses. An intelligent decision support system - INTCare, was devel- oped and tested in CHP, a hospital in Oporto, Portugal. The need to detect the presence or absence of the patient in bed, in order to stop the collection of redundant data concerning about the patient vital status led to the development of an RFID locating and monitoring system - PaLMS, able to uniquely and unambiguously identify a patient and per- ceive its presence in bed in an ubiquitous manner, making the process of data collection and alert event more accurate. An intelligent multi-agent system for integration of PaLMS in the hospital’s platform for interoper- ability (AIDA) was also developed, using the characteristics of intelligent agents for the communication process between the RFID equipment, the INTCare module and the Patient Management System, using the HL7 standard embedded in agent behaviours.",
+        "authors": [
+            "Pontes, Gabriel",
+            "Portela, Filipe",
+            "Rodrigues, Rui",
+            "Santos, Manuel Filipe",
+            "Neves, José",
+            "Abelha, António",
+            "Machado, José Manuel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Tracking people and equipment simulation inside healthcare units",
+        "year": "2013-04",
+        "doi": "10.1007/978-3-319-00566-9_2",
+        "abstract": "Simulating the trajectory of a patient, health professional or medical equipment can have diverse advantages in a healthcare envi- ronment. Many hospitals choose and to rely on RFID tracking systems to avoid the theft or loss of equipment, reduce the time spent looking for equipment, finding missing patients or staff, and issuing warnings about personnel access to unauthorized areas. The ability to success- fully simulate the trajectory of an entity is very important to replicate what happens in RFID embedded systems. Testing and optimizing in a simulated environment, which replicates actual conditions, prevent acci- dents that may occur in a real environment. Trajectory prediction is a software approach which provides, in real time, the set of sensors that can be deactivated to reduce power consumption and thereby increase the system’s lifetime. Hence, the system proposed here aims to integrate the aforementioned strategies - simulation and prediction. It constitutes an intelligent tracking simulation system able to simulate and predict an entity’s trajectory in an area fitted with RFID sensors. The system uses a Data Mining algorithm, designated SK-Means, to discover object movement patterns through historical trajectory data.",
+        "authors": [
+            "Salgado, Catia",
+            "Cardoso, Luciana",
+            "Gonçalves, Pedro",
+            "Abelha, António",
+            "Machado, José Manuel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Predict sepsis level in intensive medicine : data mining approach",
+        "year": "2013-04",
+        "doi": "10.1007/978-3-642-36981-0_19",
+        "abstract": "This paper aims to support doctor’s decision-making on predicting the Sepsis level. Thus, a set of Data Mining (DM) models were developed using prevision techniques and classification models. These models enable a better doctor’s decision having into account the Sepsis level of the patient. The DM models use real data collected from the Intensive Care Unit of the Santo António Hospital, in Oporto, Portugal. Classification DM models were considered to predict sepsis level in a supervised learning approach. The models were induced making use of the following algorithms: Decision Trees, Support Vector Machines and Naïve Bayes classifier. The models were assessed using the Confusion Matrix, associated metrics, and Cross-validation. The analysis of the total error rate, sensitivity, specificity and accuracy were the metrics used to identify the most relevant measures to predict sepsis level. This work demonstrates that it is possible to predict with great accuracy the sepsis level.",
+        "authors": [
+            "Gonçalves, João",
+            "Portela, Filipe",
+            "Santos, Manuel Filipe",
+            "Silva, Álvaro",
+            "Machado, José Manuel",
+            "Abelha, António"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Step towards paper free hospital through electronic health record",
+        "year": "2013-04",
+        "doi": "10.1007/978-3-642-36981-0_63",
+        "abstract": "Information technology has great potential for transforming the health care system, improving quality of care. With the increasing expansion of health information systems, the Electronic Health Record (EHR) has become one of the finest sources for clinical information aggregators in the context of digital health. The EHR is a core part of a hospital information system, as well as a service on duty of the patient to improve the treatment of patients. It can be considered as a longitudinal electronic record of patient heath information, for example vital signs, medical history or laboratory data, generated by one or more encounters in any care delivery setting. As the EHR offers many potential opportunities for healthcare systems, it is important to take steps to improve the system. With this in mind, a study of the features present on a Portuguese EHR was made. The basis of this study was an adoption model that evaluates the EHR system accordingly to its current features. After this study, the EHR will be ranked into one of the existing eight stages.",
+        "authors": [
+            "Salazar, Maria",
+            "Duarte, Júlio",
+            "Pereira, Rui",
+            "Portela, Filipe",
+            "Santos, Manuel Filipe",
+            "Abelha, António",
+            "Machado, José Manuel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Pushouts in software architecture design",
+        "year": "2012",
+        "doi": "10.1145/2371401.2371415",
+        "abstract": "A classical approach to program derivation is to progressively extend a simple specification and then incrementally refine it to an implementation. We claim this approach is hard or impractical when reverse engineering legacy software architectures. We present a case study that shows optimizations and pushouts--in addition to refinements and extensions--are essential for practical stepwise development of complex software architectures.",
+        "authors": [
+            "Riché, T. L.",
+            "Gonçalves, Rui",
+            "Marker, B.",
+            "Batory, D."
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Learning spaces for knowledge generation",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "As the Internet is becoming the main point for information access, Libraries, Museums and similar Institutions are preserving their collections as digital object repositories. In that way, the important information associated with digital objects may be delivered as Internet content over portals equipped with modern interfaces and navigation features. This enables the virtualization of real information exhibition spaces rising new learning paradigms. Geny is a project aiming at defining domain-specific languages and developing tools to generate web-based learning spaces from existent digital object repositories and associated semantic. The motto for Geny is “Generating learning spaces to generate knowledge”. Our objective within this project is to use (i) ontologies—one to give semantics to the digital object repository and another to describe the information to exhibit—and (ii) special languages to define the exhibition space, to enable the automatic construction of the learning space supported by a web browser. This paper presents the proposal of the Geny project along with a review of the state of the art concerning learning spaces and their virtualization. Geny is, currently, under appreciation by Fundação para a Ciência e a Tecnologia (FCT), the main Portuguese scientific funding institution.",
+        "authors": [
+            "Oliveira, Nuno",
+            "Pereira, Maria João Tinoco Varanda",
+            "Gançarski, Alda Lopes",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Parallelizing superFine",
+        "year": "2012",
+        "doi": "10.1145/2245276.2231992",
+        "abstract": "The estimation of the Tree of Life, a rooted binary tree representing how all extant species evolved from a common ancestor, is one of the grand challenges of modern biology. Research groups around the world are attempting to estimate evolutionary trees on particular sets of species (typically clades, or rooted subtrees), in the hope that a final \"supertree\" can be produced from these smaller estimated trees through the addition of a \"scaffold\" tree of randomly sampled taxa from the tree of life. However, supertree estimation is itself a computationally challenging problem, because the most accurate trees are produced by running heuristics for NP-hard problems. In this paper we report on a study in which we parallelize SuperFine, the currently most accurate and efficient supertree estimation method. We explore performance of these parallel implementations on simulated data-sets with 1000 taxa and biological data-sets with up to 2,228 taxa. Our study reveals aspects of SuperFine that limit the speed-ups that are possible through the type of outer-loop parallelism we exploit.",
+        "authors": [
+            "Neves, D.",
+            "Warnow, T.",
+            "Sobral, João Luís Ferreira",
+            "Pingali, K."
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Modular and non-invasive distributed memory parallelization",
+        "year": "2012",
+        "doi": "10.1145/2162024.2162034",
+        "abstract": "This paper presents an aspect-oriented library to support parallelization of Java applications for distributed memory environments, using a message-passing approach. The library was implemented using AspectJ language, and aims to provide a set of mechanisms to make easier to parallelize applications, as well as to solve well known problems of parallelization, such as lack of modularity and reusability. We compare the advantages of this method over the traditional approach, and we discuss differences to recent approaches that address the same problem. Results show benefits over other approaches, and, in most of cases, a competitive performance.",
+        "authors": [
+            "Gonçalves, Rui",
+            "Sobral, João Luís Ferreira"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Ontology alignment through argumentation",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "Currently, the majority of matchers are able to establish simple correspondences between entities, but are not able to provide complex alignments. Furthermore, the resulting alignments do not contain additional information on how they were extracted and formed. Not only it becomes hard to debug the alignment results, but it is also difficult to justify correspondences. We propose a method to generate complex ontology alignments that captures the semantics of matching algorithms and human-oriented ontology alignment definition processes. Through these semantics, arguments that provide an abstraction over the specificities of the alignment process are generated and used by agents to share, negotiate and combine correspondences. After the negotiation process, the resulting arguments and their relations can be visualized by humans in order to debug and understand the given correspondences.",
+        "authors": [
+            "Luz, Nuno",
+            "Silva, Nuno",
+            "Maio, Paulo",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Multispectrum video for proactive response in intelligent environments",
+        "year": "2012",
+        "doi": "10.1109/IE.2012.73",
+        "abstract": "The exponential increase of home-bound persons that live alone and are in need of continuous monitoring requires new solutions to current problems. Most of these cases present illnesses, such as motor or psychological disabilities, that deprive them of a normal living. Abnormal situations such as forgetfulness or falls are quite common and should be prevented or dealt with. This paper presents a system able to detect dangerous situations at home, such as falls, independently from existing environment conditions. The aim of the proposed system is to proactively offer support to the citizen or to warn the emergency services when needed.",
+        "authors": [
+            "Castillo, João Carlos",
+            "Serrano-Cuerda, Juan",
+            "Sokolova, Marina V.",
+            "Fernández-Caballero, Antonio",
+            "Costa, Ângelo",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Context-aware environments for online dispute resolution",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "Virtual environments, such as Online Dispute Resolution, don’t have the rich context of traditional environments do. We are developing a computational environment that can better support the decision-making process of experts by providing access to meaningful context information, allowing the intervenor to take better supported decisions. The resulting system is able to transparently acquire information about user’s state, including stress or conflict resolution style.",
+        "authors": [
+            "Novais, Paulo",
+            "Carneiro, Davide Rua",
+            "Andrade, Francisco Carneiro Pacheco",
+            "Zeleznikow, John",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "An approach to assessing stress in e-learning students",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "Abstract: On-line collaboration is becoming more and more common in education and with organisations. Many institutions encourage the use of E-learning platforms, as a complementary tool to support learning or, as in many cases, as the primary tool to do it (possibly the only one). It is believed that the sole use of such a platform can in itself be a cause of stress for students. Stress is a normal part of studying, but if not managed it the proper way, stress can grow, become a problem and greatly influence learning success. This is particularly true when in an E-learning environment, where students typically may work alone, thus more susceptible to stress. Stress detection in an E-learning environment thus becomes a crucial factor to success, with Elearning students. Estimating, in a non-invasive way, the students’ levels of stress, and taking measures to deal with it, is then the goal of this paper. We do not consider the use of dedicated sensors (invasive) such as special gloves or wrist bracelets because we intend not to be dependent on specific hardware an also we believe that such specific hardware can induce for itself some level of stress. Our work focuses on the developing of a new module to incorporate in Moodle E-learning platform, to accommodate stress detection in E-learning students.",
+        "authors": [
+            "Rodrigues, Manuel",
+            "Fdez-Riverola, Florentino",
+            "Novais, Paulo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Automatic test generation for space",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "The European Space Agency (ESA) uses an engine to perform tests in the Ground Segment infrastructure, specially the Operational Simulator. This engine uses many different tools to ensure the development of regression testing infrastructure and these tests perform black-box testing to the C++ simulator implementation. VST (VisionSpace Technologies) is one of the companies that provides these services to ESA and they need a tool to infer automatically tests from the existing C++ code, instead of writing manually scripts to perform tests. With this motivation in mind, this paper explores automatic testing approaches and tools in order to propose a system that satisfies VST needs.",
+        "authors": [
+            "Costa, Ulisses Araújo",
+            "Cruz, Daniela da",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Probabilistic SynSet based concept location",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "Concept location is a common task in program comprehension techniques, essential in many approaches used for software care and software evolution. An important goal of this process is to discover a mapping between source code and human oriented concepts. Although programs are written in a strict and formal language, natural language terms and sentences like identifiers (variables or functions names), constant strings or comments, can still be found embedded in programs. Using terminology concepts and natural language processing techniques these terms can be exploited to discover clues about which real world concepts source code is addressing. This work extends symbol tables build by compilers with ontology driven constructs, extends synonym sets defined by linguistics, with automatically created Probabilistic SynSets from software domain parallel corpora. And using a relational algebra, creates semantic bridges between program elements and human oriented concepts, to enhance concept location tasks.",
+        "authors": [
+            "Carvalho, Nuno Ramos",
+            "Almeida, J. J.",
+            "Pereira, Maria João Tinoco Varanda",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Privacy and data protection in elderly healthcare: threats and legal warranties",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "The progressive aging of the population requires new kinds of social and medical intervention and the availability of different services provided to the elder population. New applications have been developed and some services are now provided at home, allowing the older people to stay home instead of having to stay in hospitals. But an adequate response to the needs of the users will imply a high percentage of use of personal data and information, including the building up and maintenance of user profiles, feeding the systems with the data and information needed for a proactive intervention in scheduling of events in which the user may be involved. Fundamental Rights may be at stake, so a legal analysis must also be considered.",
+        "authors": [
+            "Costa, Ângelo",
+            "Andrade, Francisco Carneiro Pacheco",
+            "Novais, Paulo",
+            "Simões, Ricardo"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Behavioural and context analysis in an online dispute resolution environment",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "N/A",
+        "authors": [
+            "Novais, Paulo",
+            "Carneiro, Davide Rua",
+            "Gomes, Marco",
+            "Neves, José"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Program analysis and evaluation using QUIMERA",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "During last years, a new challenge rose up inside the programming communities: the programming contests. Programming contests can vary slightly in the rules but all of them are intended to assess the competitor skills concerning the ability to solve problems using a computer. These contests raise up three kind of challenges: to create a nice problem statement (for the members of the scientific committee); to solve the problem in a good way (for the programmers); to find a fair way to assess the results (for the judges). This paper presents a web-based application, QUIMERA intended to be a full programming-contest management system, as well as an automatic judge. Besides the traditional dynamic approach for program evaluation, QUIMERA still provides static analysis of the program for a more fine assessment of solutions. Static analysis takes profit from the technology developed for compilers and language-based tools and is supported by source code analysis and software metrics.",
+        "authors": [
+            "Fonte, Daniela",
+            "Vilas Boas, Ismael",
+            "Cruz, Daniela da",
+            "Gançarski, Alda Lopes",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "Problem domain oriented approach for program comprehension",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "This paper is concerned with an ontology driven approach for Program Comprehension that starts picking up concepts from the problem domain ontology, analyzing source code and, after locating problem concepts in the code, goes up and links them to the programming language ontology. Different location techniques are used to search for concepts embedded in comments, in the code (identifier names and execution traces), and in string-literals associated with I/O statements. The expected result is a mapping between problem domain concepts and code slices. This mapping can be visualized using graph-based approaches like, for instance, navigation facilities through a System Dependency Graph. The paper also describes a PCTool suite, Quixote, that implements the approach proposed.",
+        "authors": [
+            "Pereira, Maria João Tinoco Varanda",
+            "Marcelo Berón, Mario",
+            "Cruz, Daniela da",
+            "Oliveira, Nuno",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
+    },
+    {
+        "title": "PH-Helper : a syntax-directed editor for Hoshimi Programming Language, HL",
+        "year": "2012",
+        "doi": "N/A",
+        "abstract": "It is well known that students face many difficulties when they have to learn programming. Generally, these difficulties arise from two main reasons: i) the kind of exercises proposed by the teacher, and ii) the programming language used for solving those problems. The first problem is overcome by selecting an interesting application domain for the students. The second problem is tackled by using programming languages specialized for teaching. Nowadays, there are many programming languages aimed at simplifying the learning process. However, many of them still have the same drawbacks of traditional programming languages: the language used to write the statements is different from the programmers’ native language; and the syntactic rules impose many tricky restrictions not easy to follow. This paper presents an approach for solving the problems previously mentioned. The approach consists of using: an application domain motivating for the student, the Project Hoshimi (PH); and a programming environment, PH-Helper that is a simple and user-friendly syntax-directed editor and compiler for Hoshimi Language (HL), the actual PH programming language.",
+        "authors": [
+            "Luzza, Mariano",
+            "Marcelo Berón, Mario",
+            "Henriques, Pedro Rangel"
+        ],
+        "document_link": "N/A"
     }
 ]
